@@ -1,0 +1,15 @@
+<header class = "menu">
+  <div>
+    <button class = "firstButton" mat-button [matMenuTriggerFor]="menu" color = "black">Categories</button>
+    <button *ngIf="authenticated" class = "button" mat-button (click)="navigateToMyAuctions()">My Auctions</button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item *ngFor="let item of categories" (click)="navigateToCategory(item)">{{item.name}}</button>
+    </mat-menu>
+
+    <button *ngIf="!authenticated" class = "button" mat-button (click)="navigateToRegister()">Register</button>
+    <button *ngIf="!authenticated" class = "button" mat-button (click)="navigateToLogin()">Login</button>
+    <button *ngIf="authenticated" class = "button" mat-button (click)="navigateToProfile()">Profile</button>
+    <button *ngIf="authenticated" class = "button" mat-button (click)="logout()">Logout</button>
+  </div>
+</header>

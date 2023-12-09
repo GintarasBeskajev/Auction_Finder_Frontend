@@ -1,0 +1,26 @@
+<div *ngIf="auctionsToShow.length>0">
+  <p>Auctions in category {{category}} are currently being displayed.</p>
+
+  <table class="customers">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of auctionsToShow" (click)="navigateToAuction(item.id)">
+        <td>{{ item.name }}</td>
+        <td>{{ transformDate(item.startDate) }}</td>
+        <td>{{ transformDate(item.endDate) }}</td>
+        <td>{{ item.category.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="auctionsToShow.length<=0">
+  <p>There are no auctions to display in category {{category}}.</p>
+</div>

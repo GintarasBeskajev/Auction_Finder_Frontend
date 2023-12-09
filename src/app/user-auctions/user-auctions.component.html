@@ -1,0 +1,28 @@
+<div *ngIf="auctionsToShow.length>0">
+
+  <div class="description">Your auctions are being displayed.</div>
+  <button class="createButton" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="navigateToCreateAuction()">Create Auction</button>
+
+  <table class="customers">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of auctionsToShow" (click)="navigateToAuction(item)">
+        <td>{{ item.name }}</td>
+        <td>{{ transformDate(item.startDate) }}</td>
+        <td>{{ transformDate(item.endDate) }}</td>
+        <td>{{ item.category.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="auctionsToShow.length<=0">
+  <p>You have no active or old auctions.</p>
+</div>

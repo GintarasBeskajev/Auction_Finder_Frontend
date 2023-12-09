@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "https://clownfish-app-9ilam.ondigitalocean.app",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

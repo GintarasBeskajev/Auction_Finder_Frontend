@@ -1,0 +1,28 @@
+<div>
+  <div>Auction title: </div>
+  <mat-form-field class="example-full-width">
+    <mat-label>Your auction title</mat-label>
+    <input (input)="updateButtonState()" matInput [(ngModel)]="name" required>
+  </mat-form-field>
+
+  <div>End Date: </div>
+  <mat-form-field>
+    <input (ngModelChange)="updateButtonState()" matInput [(ngModel)]="endDate" type="datetime-local" placeholder="start date" required>
+  </mat-form-field>
+
+  <div>Description: </div>
+  <mat-form-field class="example-full-width">
+    <mat-label>Your auction description</mat-label>
+    <textarea (input)="updateButtonState()" matInput [(ngModel)]="description" required></textarea>
+  </mat-form-field>
+
+  <div>Category: </div>
+  <mat-form-field>
+    <mat-label>Auction category</mat-label>
+    <select [(ngModel)]="categoryId" (ngModelChange)="updateButtonState()" matNativeControl required>
+      <option *ngFor="let category of categories" value={{category.id}}>{{category.name}}</option>
+    </select>
+  </mat-form-field>
+
+  <button [disabled]="isButtonDisabled" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onPress()">Create Auction</button>
+</div>
