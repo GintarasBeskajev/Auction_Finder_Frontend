@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="initialized">
   <div>Auction title: </div>
   <mat-form-field class="fullWidthItem">
     <mat-label>Your auction title</mat-label>
@@ -16,15 +16,11 @@
     <textarea (input)="updateButtonState()" matInput [(ngModel)]="description" [rows]="8" maxlength="500" required></textarea>
   </mat-form-field>
 
-  <div>Category: </div>
-  <mat-form-field class="fullWidthItem">
-    <mat-label>Auction category</mat-label>
-    <select [(ngModel)]="categoryId" (ngModelChange)="updateButtonState()" matNativeControl required>
-      <option *ngFor="let category of categories" value={{category.id}}>{{category.name}}</option>
-    </select>
-  </mat-form-field>
-
   <div>
-    <button class="fullWidthItem" [disabled]="isButtonDisabled" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onPress()">Create Auction</button>
+    <button class="fullWidthItem" [disabled]="isButtonDisabled" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onPress()">Edit</button>
   </div>
+</div>
+
+<div class="centerContainer" *ngIf="!initialized">
+  <mat-progress-spinner class="custom-spinner" mode="indeterminate"></mat-progress-spinner>
 </div>

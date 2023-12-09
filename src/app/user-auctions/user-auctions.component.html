@@ -1,7 +1,10 @@
-<div *ngIf="auctionsToShow.length>0">
+<div class="mainContainer" *ngIf="initialized">
+<div class="container">
+  <div *ngIf="auctionsToShow.length>0">
 
-  <div class="description">Your auctions are being displayed.</div>
-  <button class="createButton" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="navigateToCreateAuction()">Create Auction</button>
+  <div class="description"> Your auctions are being displayed.
+    <button class="createButton" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="navigateToCreateAuction()">+ Create Auction</button>
+  </div>
 
   <table class="customers">
     <thead>
@@ -21,8 +24,15 @@
       </tr>
     </tbody>
   </table>
+  </div>
+
+  <div class="description" *ngIf="auctionsToShow.length<=0 && initialized"> You have no active or old auctions.
+    <button class="createButton" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="navigateToCreateAuction()">+ Create Auction</button>
+  </div>
+
+</div>
 </div>
 
-<div *ngIf="auctionsToShow.length<=0">
-  <p>You have no active or old auctions.</p>
+<div class="centerContainer" *ngIf="!initialized">
+  <mat-progress-spinner class="custom-spinner" mode="indeterminate"></mat-progress-spinner>
 </div>

@@ -1,0 +1,29 @@
+<div class="mainContainer" *ngIf="initialized">
+  <div class="container">
+  <div *ngIf="categories.length>0">
+
+    <button class="createButton" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="navigateToCreateCategory()">+ Create Category</button>
+
+    <table class="customers">
+      <thead>
+        <tr>
+          <th>Category Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of categories" (click)="navigateToCategory(item)">
+          <td>{{ item.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="categories.length<=0">
+    <p>There are no categories to display.</p>
+  </div>
+  </div>
+  </div>
+
+  <div class="centerContainer" *ngIf="!initialized">
+    <mat-progress-spinner class="custom-spinner" mode="indeterminate"></mat-progress-spinner>
+  </div>

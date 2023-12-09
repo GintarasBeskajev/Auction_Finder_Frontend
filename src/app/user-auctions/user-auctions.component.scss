@@ -5,6 +5,16 @@
   table-layout: fixed;
 }
 
+.container{
+  width: 80%
+}
+
+.mainContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 td, th {
   border: 1px solid #ddd;
   padding: 8px;
@@ -34,10 +44,36 @@ p {
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .createButton{
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 10px;
+}
+
+.custom-spinner ::ng-deep circle {
+  stroke: #e7b100;
+}
+
+.centerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+@media (max-width: 767px) {
+  .container{
+    width: 100%
+  }
+
+  .createButton{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
 }

@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit  {
   authenticated: boolean = false;
 
   onSubmit() {
-
     this.authService.login(this.userName, this.password).subscribe(response => {
       const tokens = { access_token: response.accessToken, refresh_token: response.refreshToken };
       this.authService.setTokens(tokens);
@@ -34,9 +33,6 @@ export class LoginComponent implements OnInit  {
         window.location.reload();
       });
     });
-
-    console.log(this.authService.isAdmin());
-
   }
 
 }

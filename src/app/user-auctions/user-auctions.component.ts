@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-user-auctions',
@@ -15,12 +16,14 @@ export class UserAuctionsComponent implements OnInit {
   auctions: any;
   categories: any;
   auctionsToShow: any[] = [];
+  initialized: boolean = false;
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute,
               private router: Router,
               private datePipe: DatePipe,
-              private authService: AuthService ) {}
+              private authService: AuthService,
+              private modalService: ModalService ) {}
 
   ngOnInit(): void {
     if (!this.authService.isAuthenticated()) {
@@ -47,12 +50,14 @@ export class UserAuctionsComponent implements OnInit {
           });
         });
       }
+
+      this.initialized = true;
     });
   }
 
   transformDate(dateString: string): any {
     const date = new Date(dateString);
-    return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm:ss');
+    return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm');
   }
 
   checkDate(dateString: string): boolean {
@@ -62,12 +67,14 @@ export class UserAuctionsComponent implements OnInit {
   }
 
   navigateToAuction(auction:any): void {
-    this.router.navigate(['/Auction', auction.category.id, auction.id]).then(() => {
-      window.location.reload();
-    });
+    // this.router.navigate(['/Auction', auction.category.id, auction.id]).then(() => {
+    //   window.location.reload();
+    // });
+
+    this.modalService.openAuctionModal(auction.category.id, auction.id);
   }
 
   navigateToCreateAuction(): void {
-    this.router.navigate(['/CreateAuction']);
+    this.modalService.openCreateAuctionModal();
   }
 }

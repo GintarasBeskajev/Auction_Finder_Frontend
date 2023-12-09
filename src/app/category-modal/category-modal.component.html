@@ -1,0 +1,17 @@
+<div class="container" *ngIf="initialized">
+  <div>Category Title:</div>
+  <div>{{category.name}}</div>
+</div>
+
+<div class="buttonContainer">
+  <button *ngIf="initialized" class="button" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onEditClick()">
+    <mat-icon style="position: absolute; top: 50%; left: 53%; transform: translate(-50%, -50%);">edit_icon</mat-icon>
+  </button>
+  <button *ngIf="initialized" class="button" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onDeleteClick()">
+    <mat-icon style="position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%);">delete_icon</mat-icon>
+  </button>
+</div>
+
+<div class="centerContainer" *ngIf="!initialized">
+  <mat-progress-spinner class="custom-spinner" mode="indeterminate"></mat-progress-spinner>
+</div>

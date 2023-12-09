@@ -1,5 +1,5 @@
 <header class = "menu">
-  <div>
+  <div fxLayout="row" fxLayoutGap="1px">
     <button class = "firstButton" mat-button [matMenuTriggerFor]="menu" color = "black">Categories</button>
     <button *ngIf="authenticated" class = "button" mat-button (click)="navigateToMyAuctions()">My Auctions</button>
 

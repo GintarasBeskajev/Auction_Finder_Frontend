@@ -1,16 +1,34 @@
-<div>
+<div class="container" *ngIf="initialized">
   <div>Auction Title:</div>
   <div>{{auction.name}}</div>
   <div>Start Date:</div>
-  <div>{{auction.startDate}}</div>
+  <div>{{transformDate(auction.startDate)}}</div>
   <div>End Date:</div>
-  <div>{{auction.endDate}}</div>
+  <div>{{transformDate(auction.endDate)}}</div>
   <div>Auction Category:</div>
   <div>{{auction.category.name}}</div>
   <div>Item Description:</div>
   <div>{{auction.description}}</div>
+</div>
 
-  <button class="createButton" mat-raised-button style="background-color: #ffde72; font-weight: bold;">Edit Auction</button>
-  <button class="createButton" mat-raised-button style="background-color: #ffde72; font-weight: bold;">Delete Auction</button>
+<div class="buttonContainer">
+  <button *ngIf="yourAuction || isAdmin && initialized" class="button" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onEditClick()">
+    <mat-icon style="position: absolute; top: 50%; left: 53%; transform: translate(-50%, -50%);">edit_icon</mat-icon>
+  </button>
+  <button *ngIf="yourAuction || isAdmin && initialized" class="button" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onDeleteClick()">
+    <mat-icon style="position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%);">delete_icon</mat-icon>
+  </button>
+</div>
 
+<div class="buttonContainer">
+  <button *ngIf="initialized && !yourAuction && authenticated" class="button" mat-raised-button style="background-color: #ffde72; font-weight: bold;">Make a Bid</button>
+</div>
+
+
+<div class="buttonContainer">
+  <button *ngIf="initialized" class="button" mat-raised-button style="background-color: #ffde72; font-weight: bold;">View Bids</button>
+</div>
+
+<div class="centerContainer" *ngIf="!initialized">
+  <mat-progress-spinner class="custom-spinner" mode="indeterminate"></mat-progress-spinner>
 </div>

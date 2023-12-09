@@ -39,8 +39,11 @@
 .container div:nth-child(odd) {
   font-weight: bold;
   margin-top: 10px;
+  display: inline-block;
 }
 
 .container div:nth-child(even) {
   margin-bottom: 10px;
+  margin-left: 5px;
+  display: inline-block;
 }

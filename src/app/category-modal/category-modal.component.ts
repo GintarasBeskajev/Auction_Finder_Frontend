@@ -3,23 +3,20 @@ import { ApiService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalService } from '../modal.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-auction',
-  templateUrl: './auction.component.html',
-  styleUrl: './auction.component.scss'
+  selector: 'app-category-modal',
+  templateUrl: './category-modal.component.html',
+  styleUrl: './category-modal.component.scss'
 })
 
-export class AuctionComponent {
-  auction : any;
-  auctionId: any;
+export class CategoryModalComponent {
   categoryId: any;
   category: any;
   authenticated: boolean = false;
-  yourAuction: boolean = false;
   initialized: boolean = false;
   isAdmin: boolean = false;
 
@@ -34,49 +31,28 @@ export class AuctionComponent {
 
   ngOnInit(): void {
 
-    if(this.authService.isAuthenticated()){
-      this.authenticated = true;
-    }
-
     if(this.authService.isAdmin()){
       this.isAdmin = true;
+    }else{
+      this.router.navigate(['/Login']);
     }
 
     this.categoryId = this.data.categoryId;
-    this.auctionId = this.data.auctionId;
 
-    this.apiService.getAuction(this.categoryId, this.auctionId).subscribe((data) => {
-      this.auction = data;
-
-      if(this.authService.getUserId() == this.auction.userId){
-        this.yourAuction = true;
-      }
-
+    this.apiService.getCategory(this.categoryId).subscribe((data) => {
+      this.category = data;
       this.initialized = true;
     });
   }
 
-  transformDate(dateString: string): any {
-    const date = new Date(dateString);
-    return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm');
-  }
-
-  checkOwnership(): boolean{
-    if(this.auction.userId == this.authService.getUserId()){
-      return true;
-    }
-
-    return false;
-  }
-
   onEditClick(){
     this.modalService.closeModal();
-    this.modalService.openEditAuctionModal(this.categoryId, this.auctionId);
+    this.modalService.openEditCategory(this.categoryId);
   }
 
   onDeleteClick(){
-    this.apiService.deleteAuction(this.categoryId, this.auctionId).subscribe(response => {
-      this.router.navigate(['/MyAuctions']).then(() => {
+    this.apiService.deleteCategory(this.categoryId).subscribe(response => {
+      this.router.navigate(['/Categories']).then(() => {
         window.location.reload();
       });
     });

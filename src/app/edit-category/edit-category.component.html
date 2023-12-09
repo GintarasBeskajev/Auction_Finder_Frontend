@@ -1,0 +1,15 @@
+<div class="container" *ngIf="initialized">
+  <div>Auction title: </div>
+  <mat-form-field class="fullWidthItem">
+    <mat-label>Your category title</mat-label>
+    <input (input)="updateButtonState()" matInput [(ngModel)]="name" required>
+  </mat-form-field>
+
+  <div>
+    <button class="fullWidthItem" [disabled]="isButtonDisabled" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onPress()">Edit</button>
+  </div>
+</div>
+
+<div class="centerContainer" *ngIf="!initialized">
+  <mat-progress-spinner class="custom-spinner" mode="indeterminate"></mat-progress-spinner>
+</div>
