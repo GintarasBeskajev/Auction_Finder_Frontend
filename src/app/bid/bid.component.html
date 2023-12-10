@@ -1,1 +1,25 @@
-<p>bid works!</p>
+<div class="container" *ngIf="initialized">
+  <div>Auction:</div>
+  <div>{{bid.auction.name}}</div>
+  <div>Time:</div>
+  <div>{{transformDate(bid.creationDate)}}</div>
+  <div>Bid:</div>
+  <div>{{bid.bidSize}}</div>
+  <div>User Email:</div>
+  <div>{{bid.userEmail}}</div>
+  <div>Comment:</div>
+  <div>{{bid.comment}}</div>
+</div>
+
+<div class="buttonContainer" *ngIf="yourBid && initialized">
+  <button class="button" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onEditClick()">
+    <mat-icon style="position: absolute; top: 50%; left: 53%; transform: translate(-50%, -50%);">edit_icon</mat-icon>
+  </button>
+  <button class="button" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onDeleteClick()">
+    <mat-icon style="position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%);">delete_icon</mat-icon>
+  </button>
+</div>
+
+<div class="centerContainer" *ngIf="!initialized">
+  <mat-progress-spinner class="custom-spinner" mode="indeterminate"></mat-progress-spinner>
+</div>

@@ -12,7 +12,6 @@ import { ModalService } from '../modal.service';
 })
 
 export class UserAuctionsComponent implements OnInit {
-
   auctions: any;
   categories: any;
   auctionsToShow: any[] = [];
@@ -27,9 +26,7 @@ export class UserAuctionsComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.authService.isAuthenticated()) {
-      this.router.navigate(['/Login']).then(() => {
-        window.location.reload();
-      });
+      this.router.navigate(['/Login']);
     }
 
     this.apiService.getCategories().subscribe((categories) => {
@@ -67,14 +64,12 @@ export class UserAuctionsComponent implements OnInit {
   }
 
   navigateToAuction(auction:any): void {
-    // this.router.navigate(['/Auction', auction.category.id, auction.id]).then(() => {
-    //   window.location.reload();
-    // });
-
+    this.modalService.closeModal();
     this.modalService.openAuctionModal(auction.category.id, auction.id);
   }
 
   navigateToCreateAuction(): void {
+    this.modalService.closeModal();
     this.modalService.openCreateAuctionModal();
   }
 }

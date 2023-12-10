@@ -39,6 +39,9 @@ import { CreateBidComponent } from './create-bid/create-bid.component';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
 import { CategoryModalComponent } from './category-modal/category-modal.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { MyBidsComponent } from './my-bids/my-bids.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -60,7 +63,10 @@ import { CategoryModalComponent } from './category-modal/category-modal.componen
     CreateBidComponent,
     CreateCategoryComponent,
     EditCategoryComponent,
-    CategoryModalComponent
+    CategoryModalComponent,
+    MainPageComponent,
+    MyBidsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

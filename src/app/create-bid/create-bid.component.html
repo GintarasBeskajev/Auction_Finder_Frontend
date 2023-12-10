@@ -1,1 +1,21 @@
-<p>create-bid works!</p>
+<div class="container" *ngIf="initialized">
+  <div>Auction title: </div>
+  <mat-form-field class="fullWidthItem">
+    <mat-label>Your Bid Size</mat-label>
+    <input type="number" (input)="updateButtonState()" matInput [(ngModel)]="bidSize" required>
+  </mat-form-field>
+
+  <div>Comment: </div>
+  <mat-form-field class="fullWidthItem">
+    <mat-label>Your comment</mat-label>
+    <textarea (input)="updateButtonState()" matInput [(ngModel)]="comment" [rows]="8" maxlength="500" required></textarea>
+  </mat-form-field>
+
+  <div>
+    <button class="fullWidthItem" [disabled]="isButtonDisabled" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onPress()">Create</button>
+  </div>
+</div>
+
+<div class="centerContainer" *ngIf="!initialized">
+  <mat-progress-spinner class="custom-spinner" mode="indeterminate"></mat-progress-spinner>
+</div>

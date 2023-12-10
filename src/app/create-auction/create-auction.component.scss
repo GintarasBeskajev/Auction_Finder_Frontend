@@ -13,3 +13,14 @@
   width: 100%;
   height: 300px;
 }
+
+.custom-spinner ::ng-deep circle {
+  stroke: #e7b100;
+}
+
+.centerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}

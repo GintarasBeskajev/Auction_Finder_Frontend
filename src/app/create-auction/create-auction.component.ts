@@ -17,6 +17,7 @@ export class CreateAuctionComponent {
   categoryId: any;
   isButtonDisabled: boolean = true;
   categories: any;
+  initialized: boolean = false;
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute,
@@ -27,13 +28,12 @@ export class CreateAuctionComponent {
   ngOnInit(): void {
 
     if(!this.authService.isAuthenticated()){
-      this.router.navigate(['/Login']).then(() => {
-        window.location.reload();
-      });
+      this.router.navigate(['/Login']);
     }
 
     this.apiService.getCategories().subscribe((data) => {
       this.categories = data;
+      this.initialized = true;
     });
   }
 

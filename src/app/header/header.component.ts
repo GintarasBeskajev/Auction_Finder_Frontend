@@ -13,17 +13,19 @@ export class HeaderComponent implements OnInit {
   categories : any;
   selectedOption: string = '';
   authenticated: boolean = false;
+  initialized: boolean = false;
+  isMenuOpen = false;
 
   constructor(private apiService: ApiService, private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
-
     if(this.authService.isAuthenticated()){
       this.authenticated = true;
     }
 
     this.apiService.getCategories().subscribe((data) => {
       this.categories = data;
+      this.initialized = true;
     });
   }
 
@@ -41,8 +43,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/Login']);
   }
 
-  navigateToProfile(): void {
-    this.router.navigate(['/Profile']);
+  navigateToMyBids(): void {
+    this.router.navigate(['/MyBids']);
   }
 
   navigateToMyAuctions(): void {
@@ -54,5 +56,9 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/Login']).then(() => {
       window.location.reload();
     });
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 }

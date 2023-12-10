@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()" class = "form">
+<!-- <form (ngSubmit)="onSubmit()" class = "form">
   <label> Username: <input type="userName" [(ngModel)]="userName" name="userName" required>
   </label>
   <br>
@@ -6,4 +6,25 @@
   </label>
   <br>
   <button type="submit">Login</button>
-</form>
+</form> -->
+<div class="imageContainer">
+  <img class="image" src="assets/lock.jpg" alt="My Image">
+</div>
+
+<div class="container">
+  <mat-form-field class="fullWidthItem">
+    <mat-label>Username</mat-label>
+    <input (input)="updateButtonState()" matInput type="userName" [(ngModel)]="userName" name="userName" required>
+  </mat-form-field>
+</div>
+
+<div class="container">
+  <mat-form-field class="fullWidthItem">
+    <mat-label>Password</mat-label>
+    <input (input)="updateButtonState()" matInput type="password" [(ngModel)]="password" name="password" required>
+  </mat-form-field>
+</div>
+
+<div class="container">
+  <button class="fullWidthItem" [disabled]="isButtonDisabled" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onSubmit()">Login</button>
+</div>

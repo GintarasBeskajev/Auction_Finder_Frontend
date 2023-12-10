@@ -24,7 +24,7 @@ export class CategoriesComponent {
 
   ngOnInit(): void {
     if(!this.authService.isAdmin() && this.authService.isAuthenticated()){
-      this.router.navigate(['/Profile']);
+      this.router.navigate(['/MyAuctions']);
     }else if(!this.authService.isAuthenticated()){
       this.router.navigate(['/Login']);
     }
@@ -36,10 +36,12 @@ export class CategoriesComponent {
   }
 
   navigateToCategory(category:any): void {
+    this.modalService.closeModal();
     this.modalService.openCategory(category.id);
   }
 
   navigateToCreateCategory(): void {
+    this.modalService.closeModal();
     this.modalService.openCreateCategory();
   }
 }

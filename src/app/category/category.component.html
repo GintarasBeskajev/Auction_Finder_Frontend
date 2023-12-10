@@ -9,7 +9,6 @@
         <th>Name</th>
         <th>Start Time</th>
         <th>End Time</th>
-        <th>Category</th>
       </tr>
     </thead>
     <tbody>
@@ -17,16 +16,15 @@
         <td>{{ item.name }}</td>
         <td>{{ transformDate(item.startDate) }}</td>
         <td>{{ transformDate(item.endDate) }}</td>
-        <td>{{ item.category.name }}</td>
       </tr>
     </tbody>
   </table>
 </div>
+</div>
+</div>
 
-<div *ngIf="auctionsToShow.length<=0">
+<div *ngIf="auctionsToShow.length<=0 && initialized">
   <p>There are no auctions to display in category {{category}}.</p>
-</div>
-</div>
 </div>
 
 <div class="centerContainer" *ngIf="!initialized">

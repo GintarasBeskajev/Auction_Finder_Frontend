@@ -27,9 +27,7 @@ export class EditCategoryComponent {
 
   ngOnInit(): void {
     if(!this.authService.isAdmin()){
-      this.router.navigate(['/Login']).then(() => {
-        window.location.reload();
-      });
+      this.router.navigate(['/Login']);
     }
 
     this.categoryId = this.data.categoryId;

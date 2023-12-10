@@ -37,9 +37,7 @@ export class EditAuctionComponent {
     }
 
     if(!this.authService.isAuthenticated()){
-      this.router.navigate(['/Login']).then(() => {
-        window.location.reload();
-      });
+      this.router.navigate(['/Login']);
     }
 
     this.categoryId = this.data.categoryId;
@@ -56,9 +54,7 @@ export class EditAuctionComponent {
       }
 
       if(!this.yourAuction && !this.isAdmin){
-        this.router.navigate(['/MyAuctions']).then(() => {
-          window.location.reload();
-        });
+        this.router.navigate(['/MyAuctions']);
       }
 
       this.updateButtonState();

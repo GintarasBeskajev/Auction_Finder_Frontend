@@ -53,7 +53,8 @@ export class CategoryComponent {
   }
 
   navigateToAuction(auction:any): void {
-    if(auction.userId == this.authService.getUserId() || this.authService.isAuthenticated()){
+    this.modalService.closeModal();
+    if(auction.userId == this.authService.getUserId()){
       this.modalService.openAuctionModal(this.categoryId, auction.id);
     } else{
       this.modalService.openAuctionGeneralModal(this.categoryId, auction.id);

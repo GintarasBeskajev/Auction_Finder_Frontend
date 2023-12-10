@@ -12,16 +12,16 @@ import { AuthService } from '../auth.service';
 })
 
 export class RegisterComponent {
-
   constructor(private apiService: ApiService, private router: Router, private authService : AuthService) {}
 
+  isButtonDisabled: boolean = true;
   userName!: string;
   email!: string;
   password!: string;
 
   ngOnInit(): void {
     if(this.authService.isAuthenticated()){
-      this.router.navigate(['/Profile']);
+      this.router.navigate(['/MyAuctions']);
     }
   }
 
@@ -38,6 +38,13 @@ export class RegisterComponent {
     });
 
     this.router.navigate(['/Login']);
+  }
 
+  updateButtonState() {
+    if(this.userName != null && this.password != null && this.email != null && this.userName.length != 0 && this.password.length != 0 && this.email.length != 0){
+      this.isButtonDisabled = false;
+    }else{
+      this.isButtonDisabled = true;
+    }
   }
 }

@@ -76,9 +76,12 @@ export class AuctionComponent {
 
   onDeleteClick(){
     this.apiService.deleteAuction(this.categoryId, this.auctionId).subscribe(response => {
-      this.router.navigate(['/MyAuctions']).then(() => {
-        window.location.reload();
-      });
+      this.router.navigate(['/MyAuctions']);
     });
+  }
+
+  navigateToBids(): void {
+    this.modalService.closeModal();
+    this.router.navigate(['/Bids', this.auction.category.id, this.auction.id]);
   }
 }

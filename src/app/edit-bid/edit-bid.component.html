@@ -1,1 +1,15 @@
-<p>edit-bid works!</p>
+<div class="container" *ngIf="initialized">
+  <div>Comment: </div>
+  <mat-form-field class="fullWidthItem">
+    <mat-label>Your bid comment:</mat-label>
+    <textarea (input)="updateButtonState()" matInput [(ngModel)]="comment" [rows]="8" maxlength="500"></textarea>
+  </mat-form-field>
+
+  <div>
+    <button class="fullWidthItem" [disabled]="isButtonDisabled" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onPress()">Edit</button>
+  </div>
+</div>
+
+<div class="centerContainer" *ngIf="!initialized">
+  <mat-progress-spinner class="custom-spinner" mode="indeterminate"></mat-progress-spinner>
+</div>

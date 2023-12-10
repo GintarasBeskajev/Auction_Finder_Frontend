@@ -10,28 +10,38 @@ import { AuthService } from '../auth.service';
 })
 
 export class LoginComponent implements OnInit  {
+  isButtonDisabled: boolean = true;
+  userName!: string;
+  password!: string;
+  authenticated: boolean = false;
 
   constructor(private apiService: ApiService, private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     if(this.authService.isAuthenticated()){
-      this.router.navigate(['/Profile']);
+      this.router.navigate(['/MyAuctions']);
+    }
+
+    this.updateButtonState();
+  }
+
+  updateButtonState() {
+    if(this.userName != null && this.password != null && this.userName.length != 0 && this.password.length != 0){
+      this.isButtonDisabled = false;
+    }else{
+      this.isButtonDisabled = true;
     }
   }
 
-  userName!: string;
-  password!: string;
-  authenticated: boolean = false;
-
   onSubmit() {
     this.authService.login(this.userName, this.password).subscribe(response => {
-      const tokens = { access_token: response.accessToken, refresh_token: response.refreshToken };
+      const tokens = { accessToken: response.accessToken, refreshToken: response.refreshToken };
       this.authService.setTokens(tokens);
 
-      window.location.reload();
-      this.router.navigate(['/Profile']).then(() => {
+      this.router.navigate(['/MyAuctions']).then(() => {
         window.location.reload();
       });
+      console.log(response);
     });
   }
 

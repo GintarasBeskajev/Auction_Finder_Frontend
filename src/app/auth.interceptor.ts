@@ -19,18 +19,16 @@ export class AuthInterceptor implements HttpInterceptor {
 
       return next.handle(authRequest).pipe(
         catchError((error) => {
-          if (error.status === 401) {
+          if (error.status === 401 ) {
             return this.authService.refreshToken().pipe(
               switchMap((tokens) => {
                 this.authService.setTokens(tokens);
-                const updatedRequest = this.addToken(request, tokens.access_token);
+                const updatedRequest = this.addToken(request, tokens.accessToken);
                 return next.handle(updatedRequest);
               }),
               catchError((refreshError) => {
                 this.authService.logout();
-                this.router.navigate(['/Login']).then(() => {
-                  window.location.reload();
-                });
+                this.router.navigate(['/Login']);
                 return throwError(() => new Error('refreshError'));
               })
             );

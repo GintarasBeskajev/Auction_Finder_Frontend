@@ -6,7 +6,6 @@
 
 .firstButton {
   font-size: 20px;
-  margin-left: 10px;
   font-weight: bold;
 }
 
@@ -15,16 +14,82 @@
   font-weight: bold;
 }
 
-@media (max-width: 767px) {
-  .firstButton {
-    font-size: 15px;
-    margin-left: 10px;
-    font-weight: bold;
+// @media (max-width: 767px) {
+//   .firstButton {
+//     font-size: 15px;
+//     margin-left: 10px;
+//     font-weight: bold;
+//     flex: 1;
+//   }
+
+//   .button {
+//     font-size: 15px;
+//     font-weight: bold;
+//     flex: 1;
+//   }
+// }
+
+$menuHeight: 35px;
+$menuBreakpoint: 768px;
+
+#my-first {
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #e7b100;
+    height: 35px;
   }
 
-  .button {
-    font-size: 15px;
-    font-weight: bold;
-    flex: 1;
+  .burger {
+    padding: 0 10px;
+    border-left: 1px solid #eee;
+    display: none;
+    cursor: pointer;
+
+    i {
+      color: black;
+      line-height: $menuHeight;
+    }
+
+    @media (max-width: $menuBreakpoint) {
+      display: block;
+    }
+  }
+
+  .menu {
+    display: flex;
+    align-items: center;
+
+    @media (max-width: $menuBreakpoint) {
+      display: none;
+
+      &.is-open {
+        display: block;
+        position: absolute;
+        top: #{$menuHeight + 2};
+        background: #fff;
+        width: 50%;
+
+        .menu-item {
+          border-bottom: 1px solid #cccccc;
+          background: #fff;
+        }
+      }
+    }
+
+    .menu-item {
+      padding: 0 10px;
+      height: $menuHeight;
+      line-height: $menuHeight;
+      text-decoration: none;
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: black;
+    }
   }
 }

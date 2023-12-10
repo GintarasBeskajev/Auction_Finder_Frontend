@@ -21,11 +21,8 @@ export class CreateCategoryComponent {
               private authService: AuthService ) {}
 
   ngOnInit(): void {
-
     if(!this.authService.isAdmin()){
-      this.router.navigate(['/Login']).then(() => {
-        window.location.reload();
-      });
+      this.router.navigate(['/Login']);
     }
   }
 

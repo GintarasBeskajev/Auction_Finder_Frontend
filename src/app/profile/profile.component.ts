@@ -8,14 +8,11 @@ import { AuthService } from '../auth.service';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthService) {}
+  isMenuOpen = false;
 
-  ngOnInit(): void {
-
-    if(!this.authService.isAuthenticated()){
-      this.router.navigate(['/Login']);
-    }
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 }

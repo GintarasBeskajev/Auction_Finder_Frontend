@@ -36,10 +36,10 @@ export class AuthService {
     }
   }
 
-  setTokens(tokens: { access_token: string; refresh_token: string }): void {
+  setTokens(tokens: any): void {
     if (this.isLocalStorageSupported()) {
-      localStorage.setItem(this.tokenKey, tokens.access_token);
-      localStorage.setItem(this.refreshTokenKey, tokens.refresh_token);
+      localStorage.setItem(this.tokenKey, tokens.accessToken);
+      localStorage.setItem(this.refreshTokenKey, tokens.refreshToken);
     }
   }
 

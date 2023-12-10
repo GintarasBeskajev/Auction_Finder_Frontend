@@ -1,1 +1,38 @@
-<p>bids works!</p>
+<div class="mainContainer" *ngIf="initialized">
+  <div class="container">
+    <div *ngIf="bids.length>0">
+      <div class="description" *ngIf="bids.length>0"> Auction bids are being displayed.
+        <button class="createButton" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="navigateToCreateBid()" *ngIf="!yourAuction">
+          + Create Bid</button>
+      </div>
+
+      <table class="customers">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Bid (Euro)</th>
+            <th>User Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of bids" (click)="navigateToBid(item)">
+            <td>{{ transformDate(item.creationDate) }}</td>
+            <td>{{ item.bidSize }}</td>
+            <td>{{ item.userEmail }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="description" *ngIf="bids.length<=0 && initialized && !yourAuction"> There are no bids on this auction.
+      <button class="createButton" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="navigateToCreateBid()">
+        + Create Bid</button>
+    </div>
+  </div>
+</div>
+
+<div class="description" *ngIf="bids.length<=0 && initialized && yourAuction && initialized"> There are no bids on this auction.</div>
+
+<div class="centerContainer" *ngIf="!initialized">
+  <mat-progress-spinner class="custom-spinner" mode="indeterminate"></mat-progress-spinner>
+</div>

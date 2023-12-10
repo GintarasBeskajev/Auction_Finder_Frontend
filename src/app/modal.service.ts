@@ -6,12 +6,47 @@ import { EditAuctionComponent } from './edit-auction/edit-auction.component';
 import { CategoryModalComponent } from './category-modal/category-modal.component';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
+import { BidComponent } from './bid/bid.component';
+import { EditBidComponent } from './edit-bid/edit-bid.component';
+import { CreateBidComponent } from './create-bid/create-bid.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModalService {
   constructor(public dialog: MatDialog) {}
+
+  openBidModal(bid: any): void {
+    const dialogRef = this.dialog.open(BidComponent, {
+      width: '300px',
+      height: '350px',
+      data: { bid },
+    });
+  }
+
+  openGeneralBidModal(bid: any): void {
+    const dialogRef = this.dialog.open(BidComponent, {
+      width: '300px',
+      height: '285px',
+      data: { bid },
+    });
+  }
+
+  openEditBidModal(bid: any): void {
+    const dialogRef = this.dialog.open(EditBidComponent, {
+      width: '300px',
+      height: '300px',
+      data: { bid },
+    });
+  }
+
+  openCreateBidModal(auction: any): void {
+    const dialogRef = this.dialog.open(CreateBidComponent, {
+      width: '400px',
+      height: '400px',
+      data: { auction },
+    });
+  }
 
   openAuctionModal(categoryId: any, auctionId: any): void {
     const dialogRef = this.dialog.open(AuctionComponent, {

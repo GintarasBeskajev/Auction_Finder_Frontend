@@ -30,6 +30,26 @@ export class ApiService {
     return this.http.delete(`${this.apiUrl}/categories/${id}`);
   }
 
+  getBids(id:number, auctionId:number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/categories/${id}/auctions/${auctionId}/bids`);
+  }
+
+  getBid(id:number, auctionId:number, bidId:number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/categories/${id}/auctions/${auctionId}/bids/${bidId}`);
+  }
+
+  createBid(data: any, id:number, auctionId:number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/categories/${id}/auctions/${auctionId}/bids`, data);
+  }
+
+  editBid(data: any, id:number, auctionId:number, bidId:number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/categories/${id}/auctions/${auctionId}/bids/${bidId}`, data);
+  }
+
+  deleteBid(id:number, auctionId:number, bidId:number){
+    return this.http.delete(`${this.apiUrl}/categories/${id}/auctions/${auctionId}/bids/${bidId}`);
+  }
+
   getAuctions(id:number): Observable<any> {
     return this.http.get(`${this.apiUrl}/categories/${id}/auctions`);
   }

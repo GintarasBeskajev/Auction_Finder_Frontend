@@ -1,5 +1,5 @@
-<header class = "menu">
-  <div fxLayout="row" fxLayoutGap="1px">
+<header class = "menu" *ngIf="initialized">
+  <!-- <div fxLayout="row" fxLayoutGap="1px">
     <button class = "firstButton" mat-button [matMenuTriggerFor]="menu" color = "black">Categories</button>
     <button *ngIf="authenticated" class = "button" mat-button (click)="navigateToMyAuctions()">My Auctions</button>
 
@@ -9,7 +9,26 @@
 
     <button *ngIf="!authenticated" class = "button" mat-button (click)="navigateToRegister()">Register</button>
     <button *ngIf="!authenticated" class = "button" mat-button (click)="navigateToLogin()">Login</button>
-    <button *ngIf="authenticated" class = "button" mat-button (click)="navigateToProfile()">Profile</button>
+    <button *ngIf="authenticated" class = "button" mat-button (click)="navigateToMyBids()">My Bids</button>
     <button *ngIf="authenticated" class = "button" mat-button (click)="logout()">Logout</button>
-  </div>
+  </div> -->
+
+  <nav id="my-first">
+    <ul>
+      <li class="burger" (click)="toggleMenu()">
+        <i class="material-icons">{{ isMenuOpen ? "close" : "menu" }}</i>
+      </li>
+      <li class="menu" [class.is-open]="isMenuOpen">
+        <a class="menu-item"><button class = "firstButton" mat-button [matMenuTriggerFor]="menu" color = "black">Categories</button></a>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item *ngFor="let item of categories" (click)="navigateToCategory(item)">{{item.name}}</button>
+        </mat-menu>
+        <a class="menu-item" *ngIf="!authenticated"><button *ngIf="!authenticated" class = "button" mat-button (click)="navigateToRegister()">Register</button></a>
+        <a class="menu-item" *ngIf="!authenticated"><button *ngIf="!authenticated" class = "button" mat-button (click)="navigateToLogin()">Login</button></a>
+        <a class="menu-item" *ngIf="authenticated"><button *ngIf="authenticated" class = "button" mat-button (click)="navigateToMyAuctions()">My Auctions</button></a>
+        <a class="menu-item" *ngIf="authenticated"><button *ngIf="authenticated" class = "button" mat-button (click)="navigateToMyBids()">My Bids</button></a>
+        <a class="menu-item" *ngIf="authenticated"><button *ngIf="authenticated" class = "button" mat-button (click)="logout()">Logout</button></a>
+      </li>
+    </ul>
+  </nav>
 </header>
