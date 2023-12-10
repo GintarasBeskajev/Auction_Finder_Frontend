@@ -25,7 +25,8 @@ const routes: Routes = [
   { path: 'Bids/:categoryId/:auctionId', component: BidsComponent },
   // { path: 'CreateAuction', component: CreateAuctionComponent },
   { path: 'Categories', component: CategoriesComponent },
-  { path: 'Profile', component: ProfileComponent },
+  // { path: 'Profile', component: ProfileComponent },
+  { path: '**', redirectTo: '/Login' }
 ];
 
 @NgModule({
