@@ -1,0 +1,31 @@
+<div class="mainContainer" *ngIf="initialized">
+  <div class="container">
+    <div *ngIf="bidsToShow.length>0">
+
+    <div class="description"> Your bids are being displayed.</div>
+
+    <table class="customers">
+      <thead>
+        <tr>
+          <th>Auction</th>
+          <th>Time</th>
+          <th>Bid (Euro)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of bidsToShow" (click)="navigateToBid(item)">
+          <td>{{ item.auction.name }}</td>
+          <td>{{ transformDate(item.creationDate) }}</td>
+          <td>{{ item.bidSize }}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  </div>
+
+  <div class="description" *ngIf="bidsToShow.length<=0 && initialized"> You have no active or old bids.</div>
+
+  <div class="centerContainer" *ngIf="!initialized">
+    <mat-progress-spinner class="custom-spinner" mode="indeterminate"></mat-progress-spinner>
+  </div>

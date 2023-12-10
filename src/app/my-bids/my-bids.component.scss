@@ -1,0 +1,81 @@
+.customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.container{
+  width: 80%
+}
+
+.mainContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  padding-left: 10px;
+}
+
+tr:nth-child(even){background-color: #ffde72;}
+
+tr:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #e7b100;
+  color: black;
+}
+
+p {
+  padding-left: 10px;
+}
+
+.description{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.createButton{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.custom-spinner ::ng-deep circle {
+  stroke: #e7b100;
+}
+
+.centerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+@media (max-width: 767px) {
+  .container{
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .createButton{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+}

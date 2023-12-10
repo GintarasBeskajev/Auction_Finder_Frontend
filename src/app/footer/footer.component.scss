@@ -1,0 +1,16 @@
+.main{
+  background-color: #6e6e6e;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  position:fixed;
+  bottom:0px;
+  width: 100%;
+}
+
+:host {
+  font-family: 'Nunito Sans', sans-serif;
+}
