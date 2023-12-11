@@ -21,6 +21,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { HeaderComponent } from './header/header.component';
 import { CategoryComponent } from './category/category.component';
@@ -42,6 +43,8 @@ import { CategoryModalComponent } from './category-modal/category-modal.componen
 import { MainPageComponent } from './main-page/main-page.component';
 import { MyBidsComponent } from './my-bids/my-bids.component';
 import { FooterComponent } from './footer/footer.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -87,6 +90,8 @@ import { FooterComponent } from './footer/footer.component';
     MatIconModule,
     FlexLayoutModule,
     MatSnackBarModule,
+    ToastrModule.forRoot(),
+    ToastModule
   ],
   providers: [
     provideClientHydration(),
@@ -96,7 +101,8 @@ import { FooterComponent } from './footer/footer.component';
       useClass: AuthInterceptor,
       multi: true
     },
-    DatePipe
+    DatePipe,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

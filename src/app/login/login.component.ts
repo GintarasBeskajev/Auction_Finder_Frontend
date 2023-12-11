@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +19,7 @@ export class LoginComponent implements OnInit  {
   password!: string;
   authenticated: boolean = false;
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthService) {}
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthService, private snackBar: MatSnackBar, private messageService: MessageService) {}
 
   ngOnInit(): void {
     if(this.authService.isAuthenticated()){
@@ -34,15 +38,36 @@ export class LoginComponent implements OnInit  {
   }
 
   onSubmit() {
-    this.authService.login(this.userName, this.password).subscribe(response => {
-      const tokens = { accessToken: response.accessToken, refreshToken: response.refreshToken };
-      this.authService.setTokens(tokens);
+    // this.authService.login(this.userName, this.password).subscribe(response => {
+    //   const tokens = { accessToken: response.accessToken, refreshToken: response.refreshToken };
+    //   this.authService.setTokens(tokens);
 
-      this.router.navigate(['/MyAuctions']).then(() => {
+    //   this.router.navigate(['/MyAuctions']).then(() => {
+    //     window.location.reload();
+    //   });
+    //   // this.router.navigate(['/MyAuctions']);
+    // });
+
+    this.authService.login(this.userName, this.password).subscribe(
+      (data) => {
+        const tokens = { accessToken: data.accessToken, refreshToken: data.refreshToken };
+        this.authService.setTokens(tokens);
+
+        this.router.navigate(['/MyAuctions']).then(() => {
         window.location.reload();
       });
-      console.log(response);
-    });
+      },
+      (error) => {
+        if(error.status === 400){
+          this.snackBar.open("Wrong username or password.", "Close", {
+            panelClass: 'success-snackbar',
+            duration: 2000,
+            horizontalPosition: 'end',
+          });
+        }
+      }
+    );
   }
 
 }
+

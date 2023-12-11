@@ -35,9 +35,8 @@ export class CategoryComponent {
 
       this.apiService.getCategory(this.categoryId).subscribe((data) => {
         this.category = data.name.toLowerCase();
+        this.initialized = true;
       });
-
-      this.initialized = true;
     });
   }
 
