@@ -7,7 +7,7 @@ import * as jwt_decode from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5106/api';
+  private apiUrl = 'https://clownfish-app-9ilam.ondigitalocean.app/api';
   private tokenKey = 'auth_token';
   private refreshTokenKey = 'refresh_token';
 
@@ -65,7 +65,7 @@ export class AuthService {
 
     if(currentAccessToken !== null){
       const decodedToken = jwt_decode.jwtDecode(currentAccessToken);
-      const userRoles: string[] = (decodedToken as any)['https://clownfish-app-9ilam.ondigitalocean.app/api'];
+      const userRoles: string[] = (decodedToken as any)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
 
       return userRoles;
     } else {
