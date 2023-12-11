@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-create-category',
@@ -18,6 +19,7 @@ export class CreateCategoryComponent {
               private route: ActivatedRoute,
               private router: Router,
               private datePipe: DatePipe,
+              private modalService: ModalService,
               private authService: AuthService ) {}
 
   ngOnInit(): void {
@@ -37,9 +39,11 @@ export class CreateCategoryComponent {
   onPress(){
     const data = { name: this.name };
     this.apiService.createCategory(data).subscribe(response => {
-      this.router.navigate(['/Categories']).then(() => {
-        window.location.reload();
-      });
+      // this.router.navigate(['/Categories']).then(() => {
+      //   window.location.reload();
+      // });
+      this.router.navigate(['/Categories']);
+      this.modalService.closeModal();
     });
   }
 }

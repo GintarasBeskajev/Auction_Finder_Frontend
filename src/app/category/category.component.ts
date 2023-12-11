@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ModalService } from '../modal.service';
 import { AuthService } from '../auth.service';
@@ -11,19 +11,27 @@ import { AuthService } from '../auth.service';
   styleUrl: './category.component.scss'
 })
 
-export class CategoryComponent {
+export class CategoryComponent implements OnInit, OnDestroy {
   auctions: any;
   auctionsToShow: any[] = [];
   categoryId: any;
   category: any;
   initialized: boolean = false;
+  mySubscription: any;
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute,
               private router: Router,
               private datePipe: DatePipe,
               private modalService: ModalService,
-              private authService: AuthService) {}
+              private authService: AuthService) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.mySubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+         this.router.navigated = false;
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.categoryId = this.route.snapshot.paramMap.get('id');
@@ -38,6 +46,12 @@ export class CategoryComponent {
         this.initialized = true;
       });
     });
+  }
+
+  ngOnDestroy(){
+    if (this.mySubscription) {
+      this.mySubscription.unsubscribe();
+    }
   }
 
   transformDate(dateString: string): any {

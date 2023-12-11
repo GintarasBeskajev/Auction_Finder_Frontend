@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-edit-category',
@@ -23,6 +24,7 @@ export class EditCategoryComponent {
               private router: Router,
               private datePipe: DatePipe,
               private authService: AuthService,
+              private modalService: ModalService,
               @Inject(MAT_DIALOG_DATA) public data: any ) {}
 
   ngOnInit(): void {
@@ -51,9 +53,11 @@ export class EditCategoryComponent {
   onPress(){
     const data = { name: this.name };
     this.apiService.editCategory(data, this.categoryId).subscribe(response => {
-      this.router.navigate(['/Categories']).then(() => {
-        window.location.reload();
-      });
+      // this.router.navigate(['/Categories']).then(() => {
+      //   window.location.reload();
+      // });
+      this.router.navigate(['/Categories']);
+      this.modalService.closeModal();
     });
   }
 }

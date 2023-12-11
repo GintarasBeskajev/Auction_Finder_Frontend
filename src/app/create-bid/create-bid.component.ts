@@ -71,9 +71,10 @@ export class CreateBidComponent {
     if(this.maxPrice < this.bidSize){
       const data = { bidSize: this.bidSize, comment: this.comment, creationDate: this.creationDate };
       this.apiService.createBid(data, this.auction.category.id, this.auction.id).subscribe(response => {
-        this.router.navigate(['/MyBids']).then(() => {
-          window.location.reload();
-        });
+        // this.router.navigate(['/MyBids']).then(() => {
+        //   window.location.reload();
+        // });
+        this.router.navigate(['/MyBids']);
       });
     } else{
       this.toastr.error('Your bid is too small');

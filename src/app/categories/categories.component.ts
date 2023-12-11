@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../api.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ModalService } from '../modal.service';
 import { AuthService } from '../auth.service';
@@ -14,13 +14,21 @@ import { AuthService } from '../auth.service';
 export class CategoriesComponent {
   categories: any;
   initialized: boolean = false;
+  mySubscription: any;
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute,
               private router: Router,
               private datePipe: DatePipe,
               private modalService: ModalService,
-              private authService: AuthService) {}
+              private authService: AuthService) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.mySubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.router.navigated = false;
+      }
+    })
+  }
 
   ngOnInit(): void {
     if(!this.authService.isAdmin() && this.authService.isAuthenticated()){
@@ -33,6 +41,12 @@ export class CategoriesComponent {
       this.categories = data;
       this.initialized = true;
     });
+  }
+
+  ngOnDestroy(){
+    if (this.mySubscription) {
+      this.mySubscription.unsubscribe();
+    }
   }
 
   navigateToCategory(category:any): void {

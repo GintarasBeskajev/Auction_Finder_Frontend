@@ -38,24 +38,14 @@ export class LoginComponent implements OnInit  {
   }
 
   onSubmit() {
-    // this.authService.login(this.userName, this.password).subscribe(response => {
-    //   const tokens = { accessToken: response.accessToken, refreshToken: response.refreshToken };
-    //   this.authService.setTokens(tokens);
-
-    //   this.router.navigate(['/MyAuctions']).then(() => {
-    //     window.location.reload();
-    //   });
-    //   // this.router.navigate(['/MyAuctions']);
-    // });
-
     this.authService.login(this.userName, this.password).subscribe(
       (data) => {
         const tokens = { accessToken: data.accessToken, refreshToken: data.refreshToken };
         this.authService.setTokens(tokens);
 
         this.router.navigate(['/MyAuctions']).then(() => {
-        window.location.reload();
-      });
+          window.location.reload();
+        });
       },
       (error) => {
         if(error.status === 400){

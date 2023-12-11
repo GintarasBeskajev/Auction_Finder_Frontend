@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-edit-bid',
@@ -21,6 +22,7 @@ export class EditBidComponent {
               private router: Router,
               private datePipe: DatePipe,
               private authService: AuthService,
+              private modalService: ModalService,
               @Inject(MAT_DIALOG_DATA) public data: any ) {}
 
   ngOnInit(): void {
@@ -50,9 +52,11 @@ export class EditBidComponent {
   onPress(){
     const data = { comment: this.comment };
     this.apiService.editBid(data, this.bid.auction.category.id, this.bid.auction.id, this.bid.id).subscribe(response => {
-      this.router.navigate(['/MyBids']).then(() => {
-        window.location.reload();
-      });
+      // this.router.navigate(['/MyBids']).then(() => {
+      //   window.location.reload();
+      // });
+      this.router.navigate(['/MyBids']);
+      this.modalService.closeModal();
     });
   }
 }

@@ -7,7 +7,7 @@ import * as jwt_decode from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://clownfish-app-9ilam.ondigitalocean.app/api';
+  private apiUrl = 'http://localhost:5106/api';
   private tokenKey = 'auth_token';
   private refreshTokenKey = 'refresh_token';
 
@@ -15,8 +15,13 @@ export class AuthService {
 
   register(userName: string, email: string, password: string): Observable<any> {
     const body = { userName, email, password };
+    console.log(body);
     return this.http.post(`${this.apiUrl}/register`, body);
   }
+
+  // register(data: any): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/register`, data);
+  // }
 
   login(userName: string, password: string): Observable<any> {
     const body = { userName, password };
@@ -60,7 +65,7 @@ export class AuthService {
 
     if(currentAccessToken !== null){
       const decodedToken = jwt_decode.jwtDecode(currentAccessToken);
-      const userRoles: string[] = (decodedToken as any)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+      const userRoles: string[] = (decodedToken as any)['https://clownfish-app-9ilam.ondigitalocean.app/api'];
 
       return userRoles;
     } else {

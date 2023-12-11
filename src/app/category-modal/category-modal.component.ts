@@ -52,9 +52,11 @@ export class CategoryModalComponent {
 
   onDeleteClick(){
     this.apiService.deleteCategory(this.categoryId).subscribe(response => {
-      this.router.navigate(['/Categories']).then(() => {
-        window.location.reload();
-      });
+      // this.router.navigate(['/Categories']).then(() => {
+      //   window.location.reload();
+      // });
+      this.router.navigate(['/Categories']);
+      this.modalService.closeModal();
     });
   }
 }

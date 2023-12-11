@@ -33,7 +33,6 @@ export class AuctionComponent {
               @Inject(MAT_DIALOG_DATA) public data: any ) {}
 
   ngOnInit(): void {
-
     if(this.authService.isAuthenticated()){
       this.authenticated = true;
     }
@@ -76,6 +75,7 @@ export class AuctionComponent {
 
   onDeleteClick(){
     this.apiService.deleteAuction(this.categoryId, this.auctionId).subscribe(response => {
+      this.modalService.closeModal();
       this.router.navigate(['/MyAuctions']);
     });
   }

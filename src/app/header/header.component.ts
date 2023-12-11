@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, NavigationEnd } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -8,15 +8,23 @@ import { AuthService } from '../auth.service';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   categories : any;
   selectedOption: string = '';
   authenticated: boolean = false;
   initialized: boolean = false;
   isMenuOpen = false;
+  mySubscription: any;
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthService) {}
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthService) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.mySubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+         this.router.navigated = false;
+      }
+    });
+  }
 
   ngOnInit(): void {
     if(this.authService.isAuthenticated()){
@@ -29,10 +37,14 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(){
+    if (this.mySubscription) {
+      this.mySubscription.unsubscribe();
+    }
+  }
+
   navigateToCategory(category:any): void {
-    this.router.navigate(['/Category', category.id]).then(() => {
-      window.location.reload();
-    });
+    this.router.navigate(['/Category', category.id]);
   }
 
   navigateToRegister(): void {

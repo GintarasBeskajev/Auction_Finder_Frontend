@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-create-auction',
@@ -23,7 +24,8 @@ export class CreateAuctionComponent {
               private route: ActivatedRoute,
               private router: Router,
               private datePipe: DatePipe,
-              private authService: AuthService ) {}
+              private authService: AuthService,
+              private modalService: ModalService ) {}
 
   ngOnInit(): void {
 
@@ -61,9 +63,11 @@ export class CreateAuctionComponent {
 
     const data = { name: this.name, description: this.description, startDate: this.startDate, endDate: this.endDate };
     this.apiService.createAuction(data, this.categoryId).subscribe(response => {
-      this.router.navigate(['/MyAuctions']).then(() => {
-        window.location.reload();
-      });
+      // this.router.navigate(['/MyAuctions']).then(() => {
+      //   window.location.reload();
+      // });
+      this.router.navigate(['/MyAuctions']);
+      this.modalService.closeModal();
     });
   }
 

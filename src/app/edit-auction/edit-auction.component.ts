@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-edit-auction',
@@ -29,6 +30,7 @@ export class EditAuctionComponent {
               private router: Router,
               private datePipe: DatePipe,
               private authService: AuthService,
+              private modalService: ModalService,
               @Inject(MAT_DIALOG_DATA) public data: any ) {}
 
   ngOnInit(): void {
@@ -83,9 +85,11 @@ export class EditAuctionComponent {
 
     const data = { name: this.name, description: this.description, endDate: this.endDate };
     this.apiService.editAuction(data, this.categoryId, this.auctionId).subscribe(response => {
-      this.router.navigate(['/MyAuctions']).then(() => {
-        window.location.reload();
-      });
+      // this.router.navigate(['/MyAuctions']).then(() => {
+      //   window.location.reload();
+      // });
+      this.router.navigate(['/MyAuctions']);
+      this.modalService.closeModal();
     });
   }
 

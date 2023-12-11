@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { ModalService } from '../modal.service';
@@ -16,13 +16,21 @@ export class UserAuctionsComponent implements OnInit {
   categories: any;
   auctionsToShow: any[] = [];
   initialized: boolean = false;
+  mySubscription: any;
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute,
               private router: Router,
               private datePipe: DatePipe,
               private authService: AuthService,
-              private modalService: ModalService ) {}
+              private modalService: ModalService ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.mySubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.router.navigated = false;
+      }
+    });
+  }
 
   ngOnInit(): void {
     if (!this.authService.isAuthenticated()) {
@@ -52,10 +60,15 @@ export class UserAuctionsComponent implements OnInit {
     // });
 
     this.apiService.getUserAuctions().subscribe((auctions) => {
-      //console.log(auctions);
       this.auctionsToShow = auctions;
       this.initialized = true;
     });
+  }
+
+  ngOnDestroy(){
+    if (this.mySubscription) {
+      this.mySubscription.unsubscribe();
+    }
   }
 
   transformDate(dateString: string): any {
