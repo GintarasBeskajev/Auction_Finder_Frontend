@@ -58,7 +58,7 @@ export class MyBidsComponent {
     // });
 
     this.apiService.getUserBids().subscribe((bids) => {
-      console.log(bids);
+      //console.log(bids);
       this.bidsToShow = bids;
       this.initialized = true;
     });

@@ -52,7 +52,7 @@ export class UserAuctionsComponent implements OnInit {
     // });
 
     this.apiService.getUserAuctions().subscribe((auctions) => {
-      console.log(auctions);
+      //console.log(auctions);
       this.auctionsToShow = auctions;
       this.initialized = true;
     });

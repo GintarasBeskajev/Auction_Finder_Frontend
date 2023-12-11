@@ -71,7 +71,7 @@ export class EditAuctionComponent {
       this.isButtonDisabled = true;
     }
 
-    console.log(this.endDate);
+    //console.log(this.endDate);
   }
 
   onPress(){
