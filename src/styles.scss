@@ -32,6 +32,13 @@ $AuctionFinderFront-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($AuctionFinderFront-theme);
 
+@import 'ngx-toastr/toastr';
+// @import 'bootstrap/scss/functions';
+// @import 'bootstrap/scss/variables';
+// @import 'bootstrap/scss/mixins';
+// @import 'ngx-toastr/toastr-bs4-alert';
+// @import 'ngx-toastr/toastr-bs5-alert';
+
 /* You can add global styles to this file, and also import other style files */
 body, html {
   height: 100%;

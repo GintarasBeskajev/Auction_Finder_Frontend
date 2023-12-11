@@ -40,7 +40,7 @@ export class EditBidComponent {
   }
 
   updateButtonState() {
-    if(this.comment != null && this.comment.length != 0){
+    if(this.comment != null && this.comment.length >= 2){
         this.isButtonDisabled = false;
     }else{
       this.isButtonDisabled = true;

@@ -30,31 +30,37 @@ export class MyBidsComponent {
       this.router.navigate(['/Login']);
     }
 
-    this.apiService.getCategories().subscribe((categories) => {
-      this.categories = categories;
-      if (this.categories != null) {
-        this.categories.forEach((category: any) => {
-          this.apiService.getAuctions(category.id).subscribe((auctions) => {
-            this.auctions = auctions;
-            if (this.auctions.length > 0) {
-              this.auctions.forEach((auction: any) => {
-                this.apiService.getBids(category.id, auction.id).subscribe((bids) => {
-                  if(bids.length > 0 && bids != undefined){
-                    bids.forEach((bid: any) => {
-                      if(bid.userId == this.authService.getUserId()){
-                        this.bidsToShow.push(bid);
-                      }
-                    });
-                  }
-                });
-              });
-            }
-          });
-          this.initialized = true;
-        });
-      }else{
-        this.initialized = true;
-      }
+    // this.apiService.getCategories().subscribe((categories) => {
+    //   this.categories = categories;
+    //   if (this.categories != null) {
+    //     this.categories.forEach((category: any) => {
+    //       this.apiService.getAuctions(category.id).subscribe((auctions) => {
+    //         this.auctions = auctions;
+    //         if (this.auctions.length > 0) {
+    //           this.auctions.forEach((auction: any) => {
+    //             this.apiService.getBids(category.id, auction.id).subscribe((bids) => {
+    //               if(bids.length > 0 && bids != undefined){
+    //                 bids.forEach((bid: any) => {
+    //                   if(bid.userId == this.authService.getUserId()){
+    //                     this.bidsToShow.push(bid);
+    //                   }
+    //                 });
+    //               }
+    //             });
+    //           });
+    //         }
+    //       });
+    //       this.initialized = true;
+    //     });
+    //   }else{
+    //     this.initialized = true;
+    //   }
+    // });
+
+    this.apiService.getUserBids().subscribe((bids) => {
+      console.log(bids);
+      this.bidsToShow = bids;
+      this.initialized = true;
     });
   }
 

@@ -1,4 +1,5 @@
-<div class="mainContainer" *ngIf="initialized">
+<div *ngIf="initialized">
+<div class="mainContainer">
 <div class="container">
 <div *ngIf="auctionsToShow.length>0">
   <p>Auctions in category {{category}} are currently being displayed.</p>
@@ -22,9 +23,9 @@
 </div>
 </div>
 </div>
-
-<div *ngIf="auctionsToShow.length<=0 && initialized">
+<div *ngIf="auctionsToShow.length<=0">
   <p>There are no auctions to display in category {{category}}.</p>
+</div>
 </div>
 
 <div class="centerContainer" *ngIf="!initialized">

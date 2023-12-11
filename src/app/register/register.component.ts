@@ -5,6 +5,7 @@ import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 
 export class RegisterComponent {
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthService, private snackBar: MatSnackBar) {}
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthService, private toastr: ToastrService) {}
 
   isButtonDisabled: boolean = true;
   userName!: string;
@@ -44,11 +45,7 @@ export class RegisterComponent {
       },
       (error) => {
         if(error.status === 400){
-          this.snackBar.open("Registration failed", "Close", {
-            panelClass: 'success-snackbar',
-            duration: 2000,
-            horizontalPosition: 'end',
-          });
+          this.toastr.error('Registration failed');
         }
       }
     );

@@ -77,4 +77,12 @@ export class ApiService {
   login(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, data);
   }
+
+  getUserAuctions(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/user/auctions`);
+  }
+
+  getUserBids(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/user/bids`);
+  }
 }

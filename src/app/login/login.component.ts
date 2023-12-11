@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit  {
   password!: string;
   authenticated: boolean = false;
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthService, private snackBar: MatSnackBar, private messageService: MessageService) {}
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     if(this.authService.isAuthenticated()){
@@ -59,11 +59,7 @@ export class LoginComponent implements OnInit  {
       },
       (error) => {
         if(error.status === 400){
-          this.snackBar.open("Wrong username or password.", "Close", {
-            panelClass: 'success-snackbar',
-            duration: 2000,
-            horizontalPosition: 'end',
-          });
+          this.toastr.error('Wrong username or password');
         }
       }
     );

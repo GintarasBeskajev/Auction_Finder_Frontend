@@ -90,7 +90,9 @@ import { MessageService } from 'primeng/api';
     MatIconModule,
     FlexLayoutModule,
     MatSnackBarModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+    }),
     ToastModule
   ],
   providers: [

@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ModalService } from '../modal.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-bid',
@@ -29,6 +30,7 @@ export class CreateBidComponent {
               private authService: AuthService,
               private snackBar: MatSnackBar,
               private modalService:ModalService,
+              private toastr: ToastrService,
               @Inject(MAT_DIALOG_DATA) public data: any ) {}
 
   ngOnInit(): void {
@@ -52,7 +54,7 @@ export class CreateBidComponent {
   }
 
   updateButtonState() {
-    if(this.bidSize != null && this.comment != null && this.bidSize.length != 0 && this.comment.length != 0){
+    if(this.bidSize != null && this.comment != null && this.bidSize.length != 0 && this.comment.length >= 2){
       this.isButtonDisabled = false;
     }else{
       this.isButtonDisabled = true;
@@ -74,9 +76,7 @@ export class CreateBidComponent {
         });
       });
     } else{
-      this.snackBar.open("Your bid is too small", "Close", {
-        duration: 2000,
-      });
+      this.toastr.error('Your bid is too small');
     }
 
     this.modalService.closeModal();

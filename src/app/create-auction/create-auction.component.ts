@@ -39,7 +39,7 @@ export class CreateAuctionComponent {
 
   updateButtonState() {
     if(this.name != null && this.description != null && this.endDate != null && this.categoryId != null &&
-        this.name.length != 0 && this.description.length != 0 && this.endDate.length != 0 && this.categoryId.length != 0){
+        this.name.length != 0 && this.description.length >= 2 && this.endDate.length != 0 && this.categoryId.length != 0  && this.checkDate(this.endDate)){
       this.isButtonDisabled = false;
     }else{
       this.isButtonDisabled = true;
@@ -64,5 +64,11 @@ export class CreateAuctionComponent {
         window.location.reload();
       });
     });
+  }
+
+  checkDate(dateString: string): boolean {
+    const currentDate = new Date();
+    const dateToCompare = new Date(dateString);
+    return dateToCompare < currentDate;
   }
 }

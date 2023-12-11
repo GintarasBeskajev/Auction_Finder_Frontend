@@ -29,25 +29,31 @@ export class UserAuctionsComponent implements OnInit {
       this.router.navigate(['/Login']);
     }
 
-    this.apiService.getCategories().subscribe((categories) => {
-      this.categories = categories;
+    // this.apiService.getCategories().subscribe((categories) => {
+    //   this.categories = categories;
 
-      if (this.categories != null) {
-        this.categories.forEach((category: any) => {
-          this.apiService.getAuctions(category.id).subscribe((auctions) => {
-            this.auctions = auctions;
+    //   if (this.categories != null) {
+    //     this.categories.forEach((category: any) => {
+    //       this.apiService.getAuctions(category.id).subscribe((auctions) => {
+    //         this.auctions = auctions;
 
-            if (this.auctions.length > 0) {
-              this.auctions.forEach((auction: any) => {
-                if(auction.userId == this.authService.getUserId()){
-                  this.auctionsToShow.push(auction);
-                }
-              });
-            }
-          });
-        });
-      }
+    //         if (this.auctions.length > 0) {
+    //           this.auctions.forEach((auction: any) => {
+    //             if(auction.userId == this.authService.getUserId()){
+    //               this.auctionsToShow.push(auction);
+    //             }
+    //           });
+    //         }
+    //       });
+    //     });
+    //   }
 
+    //   this.initialized = true;
+    // });
+
+    this.apiService.getUserAuctions().subscribe((auctions) => {
+      console.log(auctions);
+      this.auctionsToShow = auctions;
       this.initialized = true;
     });
   }

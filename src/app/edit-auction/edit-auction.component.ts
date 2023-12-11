@@ -65,7 +65,7 @@ export class EditAuctionComponent {
 
   updateButtonState() {
     if(this.name != null && this.description != null && this.endDate != null && this.name.length != 0 &&
-       this.description.length != 0 && this.endDate.length != 0){
+       this.description.length >= 2 && this.endDate.length != 0){
         this.isButtonDisabled = false;
     }else{
       this.isButtonDisabled = true;
