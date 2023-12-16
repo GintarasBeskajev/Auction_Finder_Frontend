@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ApiService } from '../api.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { ModalService } from '../modal.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-bids',
@@ -12,7 +14,7 @@ import { ModalService } from '../modal.service';
 })
 
 export class BidsComponent {
-  bids: any;
+  bids: any[] = [];
   auction: any;
   categoryId: any;
   auctionId: any;
@@ -20,6 +22,12 @@ export class BidsComponent {
   isAuthenticated: boolean = false;
   initialized: boolean = false;
   mySubscription: any;
+  displayedColumns: string[] = ['creationDate', 'bidSize', 'userEmail'];
+  dataSource!: MatTableDataSource<any>;
+
+  @ViewChild(MatSort, {static: false}) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute,
@@ -37,8 +45,17 @@ export class BidsComponent {
     this.categoryId = this.route.snapshot.paramMap.get('categoryId');
     this.auctionId = this.route.snapshot.paramMap.get('auctionId');
 
-    this.apiService.getBids(this.categoryId, this.auctionId).subscribe((bids) => {
-      this.bids = bids;
+    this.apiService.getBids(this.categoryId, this.auctionId).subscribe((response) => {
+      this.bids = response;
+
+      response = response.map((item : any) => ({
+        ...item,
+        creationDate: new Date(item.creationDate)
+      }));
+
+      console.log(response);
+      this.dataSource = new MatTableDataSource(response);
+      console.log(this.dataSource);
 
       this.apiService.getAuction(this.categoryId, this.auctionId).subscribe((auction) => {
         if(this.authService.getUserId() == auction.userId){

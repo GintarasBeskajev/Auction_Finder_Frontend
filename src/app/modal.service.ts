@@ -19,7 +19,7 @@ export class ModalService {
   openBidModal(bid: any): void {
     const dialogRef = this.dialog.open(BidComponent, {
       width: '300px',
-      height: '350px',
+      height: '340px',
       data: { bid },
     });
   }

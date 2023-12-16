@@ -1,9 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../api.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ModalService } from '../modal.service';
 import { AuthService } from '../auth.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-category',
@@ -12,12 +14,16 @@ import { AuthService } from '../auth.service';
 })
 
 export class CategoryComponent implements OnInit {
-  auctions: any;
   auctionsToShow: any[] = [];
   categoryId: any;
-  category: any;
   initialized: boolean = false;
   mySubscription: any;
+  displayedColumns: string[] = ['name', 'startDate', 'endDate'];
+  dataSource!: MatTableDataSource<any>;
+
+  @ViewChild(MatSort, {static: false}) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute,
@@ -30,15 +36,18 @@ export class CategoryComponent implements OnInit {
   ngOnInit(): void {
     this.categoryId = this.route.snapshot.paramMap.get('id');
 
-    this.apiService.getAuctions(this.categoryId).subscribe((data) => {
-      this.auctions = data;
+    this.apiService.getAuctions(this.categoryId).subscribe((response) => {
+      response = response.map((item : any) => ({
+        ...item,
+        startDate: new Date(item.startDate),
+        endDate: new Date(item.endDate)
+      }));
 
-      this.auctionsToShow = this.auctions.filter((auction: any) => !this.checkDate(this.transformDate(auction.endDate)));
+      response = response.filter((item: any) => this.checkDate(item.endDate));
 
-      this.apiService.getCategory(this.categoryId).subscribe((data) => {
-        this.category = data.name.toLowerCase();
-        this.initialized = true;
-      });
+      this.auctionsToShow = response;
+      this.dataSource = new MatTableDataSource(response);
+      this.initialized = true;
     });
   }
 
@@ -50,7 +59,7 @@ export class CategoryComponent implements OnInit {
   checkDate(dateString: string): boolean {
     const currentDate = new Date();
     const dateToCompare = new Date(dateString);
-    return dateToCompare < currentDate;
+    return dateToCompare > currentDate;
   }
 
   navigateToAuction(auction:any): void {

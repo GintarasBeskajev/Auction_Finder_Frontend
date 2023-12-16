@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../api.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { ModalService } from '../modal.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-user-auctions',
@@ -17,6 +19,12 @@ export class UserAuctionsComponent implements OnInit {
   auctionsToShow: any[] = [];
   initialized: boolean = false;
   mySubscription: any;
+  displayedColumns: string[] = ['name', 'status', 'endDate', 'startDate', 'category'];
+  dataSource!: MatTableDataSource<any>;
+
+  @ViewChild(MatSort, {static: false}) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute,
@@ -31,30 +39,21 @@ export class UserAuctionsComponent implements OnInit {
       this.router.navigate(['/Login']);
     }
 
-    // this.apiService.getCategories().subscribe((categories) => {
-    //   this.categories = categories;
+    this.apiService.getUserAuctions().subscribe((response) => {
+      this.auctionsToShow = response;
 
-    //   if (this.categories != null) {
-    //     this.categories.forEach((category: any) => {
-    //       this.apiService.getAuctions(category.id).subscribe((auctions) => {
-    //         this.auctions = auctions;
+      response = response.map((item : any) => ({
+        ...item,
+        startDate: new Date(item.startDate),
+        status: this.checkDate(item.endDate),
+        endDate: new Date(item.endDate),
+        categoryId: item.category.id,
+        category: item.category.name
+      }));
 
-    //         if (this.auctions.length > 0) {
-    //           this.auctions.forEach((auction: any) => {
-    //             if(auction.userId == this.authService.getUserId()){
-    //               this.auctionsToShow.push(auction);
-    //             }
-    //           });
-    //         }
-    //       });
-    //     });
-    //   }
-
-    //   this.initialized = true;
-    // });
-
-    this.apiService.getUserAuctions().subscribe((auctions) => {
-      this.auctionsToShow = auctions;
+      console.log(response);
+      this.dataSource = new MatTableDataSource(response);
+      console.log(this.dataSource);
       this.initialized = true;
     });
   }
@@ -64,15 +63,19 @@ export class UserAuctionsComponent implements OnInit {
     return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm');
   }
 
-  checkDate(dateString: string): boolean {
-    const currentDate = new Date();
-    const dateToCompare = new Date(dateString);
-    return dateToCompare < currentDate;
+  checkDate(auctionDate: string): string {
+    const auctionDateToCompare = new Date(auctionDate);
+    const dateToCompare = new Date();
+    if(dateToCompare > auctionDateToCompare){
+      return "Finished";
+    }else{
+      return "Ongoing";
+    }
   }
 
   navigateToAuction(auction:any): void {
     this.modalService.closeModal();
-    this.modalService.openAuctionModal(auction.category.id, auction.id);
+    this.modalService.openAuctionModal(auction.categoryId, auction.id);
   }
 
   navigateToCreateAuction(): void {
