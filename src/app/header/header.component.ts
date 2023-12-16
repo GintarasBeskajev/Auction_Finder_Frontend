@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   authenticated: boolean = false;
   initialized: boolean = false;
   isMenuOpen = false;
+  isAdmin = false;
   mySubscription: any;
 
   constructor(private apiService: ApiService, private router: Router, private authService: AuthService) {
@@ -27,6 +28,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if(this.authService.isAdmin()){
+      this.isAdmin = true;
+    }
+
     if(this.authService.isAuthenticated()){
       this.authenticated = true;
     }
@@ -45,6 +50,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navigateToCategory(category:any): void {
     this.router.navigate(['/Category', category.id]);
+  }
+
+  navigateToCategories(): void {
+    this.router.navigate(['/Categories']);
   }
 
   navigateToRegister(): void {

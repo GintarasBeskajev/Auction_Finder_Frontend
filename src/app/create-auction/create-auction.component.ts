@@ -66,8 +66,8 @@ export class CreateAuctionComponent {
       // this.router.navigate(['/MyAuctions']).then(() => {
       //   window.location.reload();
       // });
-      this.router.navigate(['/MyAuctions']);
       this.modalService.closeModal();
+      this.router.navigate(['/MyAuctions']);
     });
   }
 

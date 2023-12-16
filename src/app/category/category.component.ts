@@ -11,7 +11,7 @@ import { AuthService } from '../auth.service';
   styleUrl: './category.component.scss'
 })
 
-export class CategoryComponent implements OnInit, OnDestroy {
+export class CategoryComponent implements OnInit {
   auctions: any;
   auctionsToShow: any[] = [];
   categoryId: any;
@@ -25,12 +25,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
               private datePipe: DatePipe,
               private modalService: ModalService,
               private authService: AuthService) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.mySubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-         this.router.navigated = false;
-      }
-    });
   }
 
   ngOnInit(): void {
@@ -48,12 +42,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(){
-    if (this.mySubscription) {
-      this.mySubscription.unsubscribe();
-    }
-  }
-
   transformDate(dateString: string): any {
     const date = new Date(dateString);
     return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm');
@@ -67,7 +55,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
   navigateToAuction(auction:any): void {
     this.modalService.closeModal();
-    if(auction.userId == this.authService.getUserId()){
+    if(auction.userId == this.authService.getUserId() || this.authService.isAdmin()){
       this.modalService.openAuctionModal(this.categoryId, auction.id);
     } else{
       this.modalService.openAuctionGeneralModal(this.categoryId, auction.id);

@@ -21,14 +21,7 @@ export class CategoriesComponent {
               private router: Router,
               private datePipe: DatePipe,
               private modalService: ModalService,
-              private authService: AuthService) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.mySubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.router.navigated = false;
-      }
-    })
-  }
+              private authService: AuthService) {}
 
   ngOnInit(): void {
     if(!this.authService.isAdmin() && this.authService.isAuthenticated()){

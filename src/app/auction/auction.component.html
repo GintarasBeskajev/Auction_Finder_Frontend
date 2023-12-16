@@ -12,16 +12,16 @@
 </div>
 
 <div class="buttonContainer" *ngIf="initialized">
-  <button *ngIf="yourAuction || isAdmin" class="button" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onEditClick()">
+  <button *ngIf="yourAuction || isAdmin" class="button" mat-raised-button style="background-color: #ffd18d; font-weight: bold;" (click)="onEditClick()">
     <mat-icon style="position: absolute; top: 50%; left: 53%; transform: translate(-50%, -50%);">edit_icon</mat-icon>
   </button>
-  <button *ngIf="yourAuction || isAdmin" class="button" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="onDeleteClick()">
+  <button *ngIf="yourAuction || isAdmin" class="button" mat-raised-button style="background-color: #ffd18d; font-weight: bold;" (click)="onDeleteClick()">
     <mat-icon style="position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%);">delete_icon</mat-icon>
   </button>
 </div>
 
 <div class="buttonContainer" *ngIf="initialized">
-  <button class="button" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="navigateToBids()">View Bids</button>
+  <button class="button" mat-raised-button style="background-color: #ffd18d; font-weight: bold;" (click)="navigateToBids()">View Bids</button>
 </div>
 
 <div class="centerContainer" *ngIf="!initialized">

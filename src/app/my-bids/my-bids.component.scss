@@ -6,7 +6,7 @@
 }
 
 .container{
-  width: 80%
+  width: 90%
 }
 
 .mainContainer{
@@ -15,25 +15,43 @@
   justify-content: center;
 }
 
-td, th {
-  border: 1px solid #ddd;
-  padding: 8px;
-  padding-left: 10px;
-}
+tr:nth-child(even){background-color: #eeeeee;}
 
-tr:nth-child(even){background-color: #ffde72;}
+// td, th {
+//   border: 1px solid #ddd;
+//   padding: 8px;
+//   padding-left: 10px;
+// }
 
-tr:hover {
-  background-color: #ddd;
+// tr:nth-child(even){background-color: #ffd18d;}
+
+// th {
+//   padding-top: 12px;
+//   padding-bottom: 12px;
+//   text-align: left;
+//   background-color: #e7b100;
+//   color: black;
+// }
+
+.mat-row:hover {
+  background-color: #ffd18d;
   cursor: pointer;
 }
 
-th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #e7b100;
+.mat-row {
   color: black;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.mat-header {
+  background-color: #ce7b00;
+  color: white;
+}
+
+.table{
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 p {
@@ -56,7 +74,7 @@ p {
 }
 
 .custom-spinner ::ng-deep circle {
-  stroke: #e7b100;
+  stroke: #ce7b00;
 }
 
 .centerContainer {
@@ -78,4 +96,20 @@ p {
     margin-bottom: 10px;
     margin-right: 10px;
   }
+
+  .table{
+    margin-top: 20px;
+  }
+
+  .green {
+    color: green;
+  }
+
+  .red{
+    color: red;
+  }
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: white !important;
 }

@@ -27,12 +27,6 @@ export class BidsComponent {
               private datePipe: DatePipe,
               private authService: AuthService,
               private modalService: ModalService ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.mySubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.router.navigated = false;
-      }
-    });
   }
 
   ngOnInit(): void {
@@ -55,12 +49,6 @@ export class BidsComponent {
         this.initialized = true;
       });
     });
-  }
-
-  ngOnDestroy(){
-    if (this.mySubscription) {
-      this.mySubscription.unsubscribe();
-    }
   }
 
   transformDate(dateString: string): any {

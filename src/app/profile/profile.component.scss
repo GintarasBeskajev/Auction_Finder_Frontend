@@ -1,63 +1,111 @@
-$menuHeight: 60px;
-$menuBreakpoint: 768px;
+.customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
 
-#my-first {
-  ul {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    background-color: #e7b100;
-    height: 35px;
+.container{
+  width: 90%
+}
+
+.mainContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+tr:nth-child(even){background-color: #eeeeee;}
+
+// td, th {
+//   border: 1px solid #ddd;
+//   padding: 8px;
+//   padding-left: 10px;
+// }
+
+// tr:nth-child(even){background-color: #ffde72;}
+
+// th {
+//   padding-top: 12px;
+//   padding-bottom: 12px;
+//   text-align: left;
+//   background-color: #e7b100;
+//   color: black;
+// }
+
+.mat-row:hover {
+  background-color: #ffd18d;
+  cursor: pointer;
+}
+
+.mat-row {
+  color: black;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.mat-header {
+  background-color: #ce7b00;
+  color: white;
+}
+
+.table{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+p {
+  padding-left: 10px;
+}
+
+.description{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.createButton{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.custom-spinner ::ng-deep circle {
+  stroke: #ce7b00;
+}
+
+.centerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+@media (max-width: 767px) {
+  .container{
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
-  .burger {
-    padding: 0 10px;
-    border-left: 1px solid #eee;
-    display: none;
-    cursor: pointer;
-
-    i {
-      color: black;
-      line-height: $menuHeight;
-    }
-
-    @media (max-width: $menuBreakpoint) {
-      display: block;
-    }
+  .createButton{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
   }
 
-  .menu {
-    display: flex;
-    align-items: center;
+  .table{
+    margin-top: 20px;
+  }
 
-    @media (max-width: $menuBreakpoint) {
-      display: none;
+  .green {
+    color: green;
+  }
 
-      &.is-open {
-        display: block;
-        position: absolute;
-        top: #{$menuHeight + 2};
-        background: #fff;
-        width: 100%;
-
-        .menu-item {
-          border-bottom: 1px solid #cccccc;
-        }
-      }
-    }
-
-    .menu-item {
-      padding: 0 10px;
-      height: $menuHeight;
-      line-height: $menuHeight;
-      text-decoration: none;
-      display: block;
-      font-size: 1rem;
-      font-weight: 600;
-      color: black;
-    }
+  .red{
+    color: red;
   }
 }

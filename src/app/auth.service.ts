@@ -7,7 +7,7 @@ import * as jwt_decode from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://clownfish-app-9ilam.ondigitalocean.app/api';
+  private apiUrl = 'http://localhost:5106/api';
   private tokenKey = 'auth_token';
   private refreshTokenKey = 'refresh_token';
 

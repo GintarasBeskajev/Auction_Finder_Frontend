@@ -55,8 +55,8 @@ export class CategoryModalComponent {
       // this.router.navigate(['/Categories']).then(() => {
       //   window.location.reload();
       // });
-      this.router.navigate(['/Categories']);
       this.modalService.closeModal();
+      this.router.navigate(['/Categories']);
     });
   }
 }

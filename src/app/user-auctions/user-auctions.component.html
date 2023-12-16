@@ -3,7 +3,7 @@
   <div *ngIf="auctionsToShow.length>0">
 
   <div class="description"> Your auctions are being displayed.
-    <button class="createButton" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="navigateToCreateAuction()">+ Create Auction</button>
+    <button class="createButton" mat-raised-button style="background-color: #ffd18d; font-weight: bold;" (click)="navigateToCreateAuction()">+ Create Auction</button>
   </div>
 
   <table class="customers">
@@ -27,7 +27,7 @@
   </div>
 
   <div class="description" *ngIf="auctionsToShow.length<=0 && initialized"> You have no active or old auctions.
-    <button class="createButton" mat-raised-button style="background-color: #ffde72; font-weight: bold;" (click)="navigateToCreateAuction()">+ Create Auction</button>
+    <button class="createButton" mat-raised-button style="background-color: #ffd18d; font-weight: bold;" (click)="navigateToCreateAuction()">+ Create Auction</button>
   </div>
 
 </div>

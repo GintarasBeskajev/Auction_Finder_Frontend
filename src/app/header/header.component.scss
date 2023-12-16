@@ -1,36 +1,41 @@
-.menu {
-  background-color: #e7b100;
-  color: black;
-  height: 35px;
+.header {
+  background-color: #ce7b00;
+  height: 50px;
   width: 100%;
+  box-shadow: 0 4px 10px -2px gray;
 }
 
 .firstButton {
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
+  width:fit-content;
+  height: 50px;
+  margin: auto;
+  margin-left: 5px;
+  padding-right: 10px;
 }
 
 .button {
-  font-size: 20px;
+  font-size: 25px;
+  width:fit-content;
+  height: 50px;
   font-weight: bold;
+  margin: auto;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-// @media (max-width: 767px) {
-//   .firstButton {
-//     font-size: 15px;
-//     margin-left: 10px;
-//     font-weight: bold;
-//     flex: 1;
-//   }
+.lastButton {
+  font-size: 25px;
+  font-weight: bold;
+  width: fit-content;
+  height: 50px;
+  margin: auto;
+  position: absolute;
+  right: 5px;
+}
 
-//   .button {
-//     font-size: 15px;
-//     font-weight: bold;
-//     flex: 1;
-//   }
-// }
-
-$menuHeight: 35px;
+$menuHeight: 50px;
 $menuBreakpoint: 768px;
 
 #my-first {
@@ -39,20 +44,16 @@ $menuBreakpoint: 768px;
     padding: 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    background-color: #e7b100;
-    height: 35px;
+    height: 51px;
   }
 
   .burger {
     padding: 0 10px;
-    border-left: 1px solid #eee;
     display: none;
     cursor: pointer;
 
     i {
-      color: black;
+      color: white;
       line-height: $menuHeight;
     }
 
@@ -72,25 +73,46 @@ $menuBreakpoint: 768px;
         display: block;
         position: absolute;
         top: #{$menuHeight + 2};
-        background: #fff;
+        left: 0;
+        background: #ffffff00;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
         width: 50%;
 
         .menu-item {
           border-bottom: 1px solid #cccccc;
-          background: #fff;
+          border-right: 1px solid #cccccc;
+          border-left: 1px solid #cccccc;
+          background: #ffffff;
+          position: relative;
+          z-index: 9999;
+        }
+
+        .menu-item button {
+          color: black;
+        }
+
+        .firstButton {
+          margin-left: 0px;
+        }
+
+        .lastButton {
+          position: relative;
         }
       }
     }
 
     .menu-item {
-      padding: 0 10px;
       height: $menuHeight;
       line-height: $menuHeight;
       text-decoration: none;
       display: block;
       font-size: 1rem;
       font-weight: 600;
-      color: black;
+      color: white;
+    }
+
+    .menu-item button {
+      color: white;
     }
   }
 }

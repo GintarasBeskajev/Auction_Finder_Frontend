@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ApiService } from '../api.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { ModalService } from '../modal.service';
+import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-my-bids',
@@ -18,6 +20,12 @@ export class MyBidsComponent {
   bidsToShow: any[] = [];
   initialized: boolean = false;
   mySubscription: any;
+  displayedColumns: string[] = ['auction', 'status', 'creationDate', 'bidSize'];
+  dataSource!: MatTableDataSource<any>;
+
+  @ViewChild(MatSort, {static: false}) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute,
@@ -25,12 +33,6 @@ export class MyBidsComponent {
               private datePipe: DatePipe,
               private authService: AuthService,
               private modalService: ModalService ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.mySubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-         this.router.navigated = false;
-      }
-    });
   }
 
   ngOnInit(): void {
@@ -38,35 +40,19 @@ export class MyBidsComponent {
       this.router.navigate(['/Login']);
     }
 
-    // this.apiService.getCategories().subscribe((categories) => {
-    //   this.categories = categories;
-    //   if (this.categories != null) {
-    //     this.categories.forEach((category: any) => {
-    //       this.apiService.getAuctions(category.id).subscribe((auctions) => {
-    //         this.auctions = auctions;
-    //         if (this.auctions.length > 0) {
-    //           this.auctions.forEach((auction: any) => {
-    //             this.apiService.getBids(category.id, auction.id).subscribe((bids) => {
-    //               if(bids.length > 0 && bids != undefined){
-    //                 bids.forEach((bid: any) => {
-    //                   if(bid.userId == this.authService.getUserId()){
-    //                     this.bidsToShow.push(bid);
-    //                   }
-    //                 });
-    //               }
-    //             });
-    //           });
-    //         }
-    //       });
-    //       this.initialized = true;
-    //     });
-    //   }else{
-    //     this.initialized = true;
-    //   }
-    // });
+    this.apiService.getUserBids().subscribe((response) => {
+      this.bidsToShow = response;
 
-    this.apiService.getUserBids().subscribe((bids) => {
-      this.bidsToShow = bids;
+      response = response.map((item : any) => ({
+        ...item,
+        creationDate: new Date(item.creationDate),
+        status: this.checkDate(item.auction.endDate),
+        auction: item.auction.name
+      }));
+
+      console.log(response);
+      this.dataSource = new MatTableDataSource(response);
+      console.log(this.dataSource);
       this.initialized = true;
     });
   }
@@ -80,4 +66,15 @@ export class MyBidsComponent {
     this.modalService.closeModal();
     this.modalService.openBidModal(bid);
   }
+
+  checkDate(auctionDate: string): string {
+    const auctionDateToCompare = new Date(auctionDate);
+    const dateToCompare = new Date();
+    if(dateToCompare > auctionDateToCompare){
+      return "Finished";
+    }else{
+      return "Ongoing";
+    }
+  }
 }
+

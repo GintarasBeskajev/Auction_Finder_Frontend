@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = 'https://clownfish-app-9ilam.ondigitalocean.app/api';
+  private apiUrl = 'http://localhost:5106/api';
   //http://localhost:5106/api
   //https://clownfish-app-9ilam.ondigitalocean.app/api
 

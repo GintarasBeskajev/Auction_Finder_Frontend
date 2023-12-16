@@ -58,8 +58,8 @@ export class BidComponent {
       // this.router.navigate(['/MyBids']).then(() => {
       //   window.location.reload();
       // });
-      this.router.navigate(['/MyBids']);
       this.modalService.closeModal();
+      this.router.navigate(['/MyBids']);
     });
   }
 }

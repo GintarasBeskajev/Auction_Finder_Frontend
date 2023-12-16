@@ -45,6 +45,9 @@ import { MyBidsComponent } from './my-bids/my-bids.component';
 import { FooterComponent } from './footer/footer.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -90,6 +93,10 @@ import { MessageService } from 'primeng/api';
     MatIconModule,
     FlexLayoutModule,
     MatSnackBarModule,
+    MatTableModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatSortModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
     }),
