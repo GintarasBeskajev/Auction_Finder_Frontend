@@ -23,7 +23,9 @@ export class UserAuctionsComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatSort, {static: false}) set content(sort: MatSort) {
-    this.dataSource.sort = sort;
+    if(sort != undefined){
+      this.dataSource.sort = sort;
+    }
   }
 
   constructor(private apiService: ApiService,
@@ -51,9 +53,9 @@ export class UserAuctionsComponent implements OnInit {
         category: item.category.name
       }));
 
-      console.log(response);
+      // console.log(response);
       this.dataSource = new MatTableDataSource(response);
-      console.log(this.dataSource);
+      // console.log(this.dataSource);
       this.initialized = true;
     });
   }

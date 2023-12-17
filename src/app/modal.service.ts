@@ -19,7 +19,7 @@ export class ModalService {
   openBidModal(bid: any): void {
     const dialogRef = this.dialog.open(BidComponent, {
       width: '300px',
-      height: '340px',
+      height: '325px',
       data: { bid },
     });
   }
@@ -35,7 +35,7 @@ export class ModalService {
   openEditBidModal(bid: any): void {
     const dialogRef = this.dialog.open(EditBidComponent, {
       width: '300px',
-      height: '300px',
+      height: '290px',
       data: { bid },
     });
   }
@@ -74,7 +74,7 @@ export class ModalService {
   openEditAuctionModal(categoryId: any, auctionId: any): void {
     const dialogRef = this.dialog.open(EditAuctionComponent, {
       width: '300px',
-      height: '470px',
+      height: '480px',
       data: { categoryId, auctionId },
     });
   }
@@ -82,7 +82,7 @@ export class ModalService {
   openCategory(categoryId: any): void {
     const dialogRef = this.dialog.open(CategoryModalComponent, {
       width: '300px',
-      height: '150px',
+      height: '130px',
       data: { categoryId },
     });
   }
@@ -90,7 +90,7 @@ export class ModalService {
   openCreateCategory(): void {
     const dialogRef = this.dialog.open(CreateCategoryComponent, {
       width: '300px',
-      height: '160px',
+      height: '155px',
     });
   }
 

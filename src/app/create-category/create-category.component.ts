@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { ModalService } from '../modal.service';
+import { UpdateService } from '../update.service';
 
 @Component({
   selector: 'app-create-category',
@@ -20,6 +21,7 @@ export class CreateCategoryComponent {
               private router: Router,
               private datePipe: DatePipe,
               private modalService: ModalService,
+              private updateService: UpdateService,
               private authService: AuthService ) {}
 
   ngOnInit(): void {
@@ -43,7 +45,8 @@ export class CreateCategoryComponent {
       //   window.location.reload();
       // });
       this.modalService.closeModal();
-      this.router.navigate(['/Categories']);
+      this.updateService.triggerHeaderUpdate();
+      this.router.navigate([this.router.url]);
     });
   }
 }

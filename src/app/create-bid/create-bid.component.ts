@@ -74,7 +74,7 @@ export class CreateBidComponent {
         // this.router.navigate(['/MyBids']).then(() => {
         //   window.location.reload();
         // });
-        this.router.navigate(['/MyBids']);
+        this.router.navigate([this.router.url]);
       });
     } else{
       this.toastr.error('Your bid is too small');

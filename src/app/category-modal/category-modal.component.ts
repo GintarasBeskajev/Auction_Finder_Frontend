@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
 import { ModalService } from '../modal.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UpdateService } from '../update.service';
 
 @Component({
   selector: 'app-category-modal',
@@ -26,7 +27,7 @@ export class CategoryModalComponent {
               private datePipe: DatePipe,
               private authService : AuthService,
               private modalService : ModalService,
-              private snackBar: MatSnackBar,
+              private updateService : UpdateService,
               @Inject(MAT_DIALOG_DATA) public data: any ) {}
 
   ngOnInit(): void {
@@ -56,7 +57,8 @@ export class CategoryModalComponent {
       //   window.location.reload();
       // });
       this.modalService.closeModal();
-      this.router.navigate(['/Categories']);
+      this.updateService.triggerHeaderUpdate();
+      this.router.navigate([this.router.url]);
     });
   }
 }

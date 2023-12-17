@@ -24,7 +24,9 @@ export class MyBidsComponent {
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatSort, {static: false}) set content(sort: MatSort) {
-    this.dataSource.sort = sort;
+    if(sort != undefined){
+      this.dataSource.sort = sort;
+    }
   }
 
   constructor(private apiService: ApiService,
@@ -47,12 +49,14 @@ export class MyBidsComponent {
         ...item,
         creationDate: new Date(item.creationDate),
         status: this.checkDate(item.auction.endDate),
+        auctionId: item.auction.id,
+        categoryId: item.auction.category.id,
         auction: item.auction.name
       }));
 
-      console.log(response);
+      // console.log(response);
       this.dataSource = new MatTableDataSource(response);
-      console.log(this.dataSource);
+      // console.log(this.dataSource);
       this.initialized = true;
     });
   }

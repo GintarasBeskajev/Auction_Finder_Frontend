@@ -1,15 +1,17 @@
-<div class="container" *ngIf="initialized">
+<div *ngIf="initialized">
+<div class="container">
   <div>Category Title:</div>
   <div>{{category.name}}</div>
 </div>
 
-<div class="buttonContainer && initialized">
+<div class="buttonContainer">
   <button class="button" mat-raised-button style="background-color: #ffd18d; font-weight: bold;" (click)="onEditClick()">
     <mat-icon style="position: absolute; top: 50%; left: 53%; transform: translate(-50%, -50%);">edit_icon</mat-icon>
   </button>
   <button class="button" mat-raised-button style="background-color: #ffd18d; font-weight: bold;" (click)="onDeleteClick()">
     <mat-icon style="position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%);">delete_icon</mat-icon>
   </button>
+</div>
 </div>
 
 <div class="centerContainer" *ngIf="!initialized">

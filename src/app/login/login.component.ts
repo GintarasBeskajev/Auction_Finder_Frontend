@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
+import { UpdateService } from '../update.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit  {
   password!: string;
   authenticated: boolean = false;
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthService, private toastr: ToastrService) {}
+  constructor(private router: Router, private authService: AuthService, private toastr: ToastrService, private updateService: UpdateService) {}
 
   ngOnInit(): void {
     if(this.authService.isAuthenticated()){
@@ -42,10 +43,8 @@ export class LoginComponent implements OnInit  {
       (data) => {
         const tokens = { accessToken: data.accessToken, refreshToken: data.refreshToken };
         this.authService.setTokens(tokens);
-
-        this.router.navigate(['/MyAuctions']).then(() => {
-          window.location.reload();
-        });
+        this.updateService.triggerHeaderUpdate();
+        this.router.navigate(['/MyAuctions']);
       },
       (error) => {
         if(error.status === 400){

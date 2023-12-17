@@ -17,22 +17,6 @@
 
 tr:nth-child(even){background-color: #eeeeee;}
 
-// td, th {
-//   border: 1px solid #ddd;
-//   padding: 8px;
-//   padding-left: 10px;
-// }
-
-// tr:nth-child(even){background-color: #ffd18d;}
-
-// th {
-//   padding-top: 12px;
-//   padding-bottom: 12px;
-//   text-align: left;
-//   background-color: #e7b100;
-//   color: black;
-// }
-
 .mat-row:hover {
   background-color: #ffd18d;
   cursor: pointer;
@@ -59,11 +43,10 @@ p {
 }
 
 .description{
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 10px;
   margin-left: 10px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 

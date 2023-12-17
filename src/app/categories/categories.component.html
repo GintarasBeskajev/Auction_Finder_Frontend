@@ -24,6 +24,7 @@
 
       <div class="description" *ngIf="categories.length<=0 && initialized">
         <button class="createButton" mat-raised-button style="background-color: #ffd18d; font-weight: bold;" (click)="navigateToCreateCategory()">+ Create Category</button>
+        <div class="message">There are no categories created yet.</div>
       </div>
     </div>
   </div>

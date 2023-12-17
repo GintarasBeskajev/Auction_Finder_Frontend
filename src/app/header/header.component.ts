@@ -1,7 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Router, NavigationExtras, NavigationEnd } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { UpdateService } from '../update.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -17,13 +19,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isMenuOpen = false;
   isAdmin = false;
   mySubscription: any;
+  private subscription: Subscription;
 
-  constructor(private apiService: ApiService, private router: Router, private authService: AuthService) {
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthService, private el: ElementRef, private updateService: UpdateService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.mySubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
          this.router.navigated = false;
       }
+    });
+
+    this.subscription = this.updateService.headerUpdate$.subscribe(() => {
+      this.initialized = false;
+      if(this.authService.isAdmin()){
+        this.isAdmin = true;
+      }
+
+      if(this.authService.isAuthenticated()){
+        this.authenticated = true;
+      }
+
+      this.apiService.getCategories().subscribe((data) => {
+        this.categories = data;
+        this.initialized = true;
+      });
     });
   }
 
@@ -46,6 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.mySubscription) {
       this.mySubscription.unsubscribe();
     }
+    this.subscription.unsubscribe();
   }
 
   navigateToCategory(category:any): void {
@@ -74,12 +94,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/Login']).then(() => {
-      window.location.reload();
+
+    this.initialized = false;
+    this.isAdmin = false;
+    this.authenticated = false;
+
+    this.apiService.getCategories().subscribe((data) => {
+      this.categories = data;
+      this.router.navigate(['/Login']);
+      this.initialized = true;
     });
   }
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  handleDocumentClick(event: Event) {
+    if (!this.el.nativeElement.contains(event.target)) {
+      this.isMenuOpen = false;
+    }
   }
 }

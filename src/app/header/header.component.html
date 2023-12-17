@@ -13,7 +13,7 @@
     <button *ngIf="authenticated" class = "button" mat-button (click)="logout()">Logout</button>
   </div> -->
 
-  <nav id="my-first">
+  <nav id="my-first" (document:click)="handleDocumentClick($event)">
     <ul>
       <li class="burger" (click)="toggleMenu()">
         <i class="material-icons">{{ isMenuOpen ? "close" : "menu" }}</i>

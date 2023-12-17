@@ -56,7 +56,7 @@ export class EditCategoryComponent {
       // this.router.navigate(['/Categories']).then(() => {
       //   window.location.reload();
       // });
-      this.router.navigate(['/Categories']);
+      this.router.navigate([this.router.url]);
       this.modalService.closeModal();
     });
   }

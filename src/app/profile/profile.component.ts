@@ -45,7 +45,7 @@ export class ProfileComponent {
 
       this.dataSource = new MatTableDataSource(response);
       this.dataSource.sort = this.sort;
-      console.log(this.dataSource);
+      // console.log(this.dataSource);
       this.initialized = true;
     });
   }

@@ -67,7 +67,7 @@ export class CreateAuctionComponent {
       //   window.location.reload();
       // });
       this.modalService.closeModal();
-      this.router.navigate(['/MyAuctions']);
+      this.router.navigate([this.router.url]);
     });
   }
 

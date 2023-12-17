@@ -22,7 +22,9 @@ export class CategoryComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatSort, {static: false}) set content(sort: MatSort) {
-    this.dataSource.sort = sort;
+    if(sort != undefined){
+      this.dataSource.sort = sort;
+    }
   }
 
   constructor(private apiService: ApiService,

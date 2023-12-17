@@ -88,7 +88,7 @@ export class EditAuctionComponent {
       // this.router.navigate(['/MyAuctions']).then(() => {
       //   window.location.reload();
       // });
-      this.router.navigate(['/MyAuctions']);
+      this.router.navigate([this.router.url]);
       this.modalService.closeModal();
     });
   }
