@@ -67,6 +67,10 @@ export class BidsComponent {
         }
         this.auction = auction;
 
+        if(this.auction.userId == this.authService.getUserId()){
+          this.yourAuction = true;
+        }
+
         this.initialized = true;
       });
     });

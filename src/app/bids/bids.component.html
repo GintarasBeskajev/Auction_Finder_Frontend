@@ -3,7 +3,7 @@
     <div *ngIf="bids.length>0 && initialized">
 
       <div class="description">
-        <button class="createButton" mat-raised-button style="background-color: #ffd18d; font-weight: bold;" (click)="navigateToCreateBid()">+ Create Bid</button>
+        <button *ngIf="!yourAuction" class="createButton" mat-raised-button style="background-color: #ffd18d; font-weight: bold;" (click)="navigateToCreateBid()">+ Create Bid</button>
       </div>
 
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table">
@@ -29,7 +29,7 @@
     </div>
 
     <div class="description" *ngIf="bids.length<=0 && initialized">
-      <button class="createButton" mat-raised-button style="background-color: #ffd18d; font-weight: bold;" (click)="navigateToCreateBid()">+ Create Bid</button>
+      <button *ngIf="!yourAuction" class="createButton" mat-raised-button style="background-color: #ffd18d; font-weight: bold;" (click)="navigateToCreateBid()">+ Create Bid</button>
       <div class="message">There are no bids on this auction</div>
     </div>
   </div>
