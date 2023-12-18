@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalService } from '../modal.service';
+import { UpdateService } from '../update.service';
 
 @Component({
   selector: 'app-edit-category',
@@ -25,6 +26,7 @@ export class EditCategoryComponent {
               private datePipe: DatePipe,
               private authService: AuthService,
               private modalService: ModalService,
+              private updateService: UpdateService,
               @Inject(MAT_DIALOG_DATA) public data: any ) {}
 
   ngOnInit(): void {
@@ -57,6 +59,7 @@ export class EditCategoryComponent {
       //   window.location.reload();
       // });
       this.router.navigate([this.router.url]);
+      this.updateService.triggerHeaderUpdate();
       this.modalService.closeModal();
     });
   }
