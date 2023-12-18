@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  private tokenKey = 'auth_token';
+  private refreshTokenKey = 'refresh_token';
+
   constructor(private authService: AuthService, private router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -27,7 +30,12 @@ export class AuthInterceptor implements HttpInterceptor {
                 return next.handle(updatedRequest);
               }),
               catchError((refreshError) => {
-                this.authService.logout();
+                this.authService.logout().subscribe((response) => {
+                  if (this.isLocalStorageSupported()) {
+                    localStorage.removeItem(this.tokenKey);
+                    localStorage.removeItem(this.refreshTokenKey);
+                  }
+                });
                 this.router.navigate(['/Login']);
                 return throwError(() => new Error('refreshError'));
               })
@@ -48,5 +56,9 @@ export class AuthInterceptor implements HttpInterceptor {
         Authorization: `Bearer ${token}`
       }
     });
+  }
+
+  private isLocalStorageSupported(): boolean {
+    return typeof localStorage !== 'undefined';
   }
 }

@@ -18,10 +18,6 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, body);
   }
 
-  // register(data: any): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/register`, data);
-  // }
-
   login(userName: string, password: string): Observable<any> {
     const body = { userName, password };
     return this.http.post(`${this.apiUrl}/login`, body);
@@ -33,11 +29,8 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/accessToken`, body);
   }
 
-  logout(): void {
-    if (this.isLocalStorageSupported()) {
-      localStorage.removeItem(this.tokenKey);
-      localStorage.removeItem(this.refreshTokenKey);
-    }
+  logout(): Observable<any> {
+    return this.http.post(`${this.apiUrl}/logout`, null);
   }
 
   setTokens(tokens: any): void {

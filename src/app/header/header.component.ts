@@ -20,6 +20,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAdmin = false;
   mySubscription: any;
   private subscription: Subscription;
+  private tokenKey = 'auth_token';
+  private refreshTokenKey = 'refresh_token';
 
   constructor(private apiService: ApiService, private router: Router, private authService: AuthService, private el: ElementRef, private updateService: UpdateService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -93,16 +95,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.authService.logout();
+    this.authService.logout().subscribe((response) => {
 
-    this.initialized = false;
-    this.isAdmin = false;
-    this.authenticated = false;
+      if (this.isLocalStorageSupported()) {
+        localStorage.removeItem(this.tokenKey);
+        localStorage.removeItem(this.refreshTokenKey);
+      }
 
-    this.apiService.getCategories().subscribe((data) => {
-      this.categories = data;
-      this.router.navigate(['/Login']);
-      this.initialized = true;
+      this.initialized = false;
+      this.isAdmin = false;
+      this.authenticated = false;
+
+      this.apiService.getCategories().subscribe((data) => {
+        this.categories = data;
+        this.router.navigate(['/Login']);
+        this.initialized = true;
+      });
     });
   }
 
@@ -114,5 +122,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (!this.el.nativeElement.contains(event.target)) {
       this.isMenuOpen = false;
     }
+  }
+
+  private isLocalStorageSupported(): boolean {
+    return typeof localStorage !== 'undefined';
   }
 }
